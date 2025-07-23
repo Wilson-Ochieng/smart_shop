@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -22,13 +23,13 @@ class MainApp extends StatelessWidget {
           return ThemeProvider();
         })
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.red,
-          primarySwatch: Colors.green,
-      
-        ),
-        home: HomeScreen(),
+      child: Consumer<ThemeProvider>(
+        builder: (context,themeProvider,child) {
+          return MaterialApp(
+            theme: Styles.themeData(isDarktheme: themeProvider.getIsDarkTheme, context: context),
+            home: HomeScreen(),
+          );
+        }
       ),
     );
   }

@@ -5,6 +5,12 @@ class ThemeProvider  with ChangeNotifier{
 static const THEMESTATUS ="THEME_STATUS";
 bool _darkTheme = false;
 bool get getIsDarkTheme => _darkTheme;
+
+ThemeProvider(){
+
+getTheme();
+
+}
 setDarkTheme(bool value) async{
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
