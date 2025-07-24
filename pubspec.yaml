@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_iconly: ^1.0.2
   provider: ^6.1.5
   shared_preferences: ^2.5.3
 
@@ -19,3 +20,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/bag/
+    - assets/images/banners/
+    - assets/images/categories/
+    - assets/images/profile/
+
+
