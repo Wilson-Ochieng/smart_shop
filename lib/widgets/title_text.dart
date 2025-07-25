@@ -9,7 +9,7 @@ class TitleTextWidget extends StatelessWidget {
     this.color,
     this.textDecoration = TextDecoration.none,
     this.fontStyle = FontStyle.normal,
-    this.maxLines
+    this.maxLines,
   });
 
   final String label;
@@ -17,7 +17,7 @@ class TitleTextWidget extends StatelessWidget {
   final FontWeight fontWeight;
   final FontStyle fontStyle;
   final Color? color;
-  final int?maxLines;
+  final int? maxLines;
   final TextDecoration textDecoration;
 
   @override
@@ -30,9 +30,9 @@ class TitleTextWidget extends StatelessWidget {
         fontWeight: fontWeight,
 
         decoration: textDecoration,
-        color: Colors.red,
+        color: color,
         fontStyle: FontStyle.italic,
-        overflow: TextOverflow.ellipsis
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
