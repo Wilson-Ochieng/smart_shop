@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947337860520",
+    "project_id": "dukaletu2-66d0b",
+    "storage_bucket": "dukaletu2-66d0b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947337860520:android:6b76abd6946bc3d607b99d",
+        "android_client_info": {
+          "package_name": "com.example.shop_smart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

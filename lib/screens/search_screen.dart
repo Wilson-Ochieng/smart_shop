@@ -9,7 +9,7 @@ class SearchScreen extends StatelessWidget {
     return const Scaffold(
 
       body: Center(
-        child: TitleTextWidget(label: "SeachScreen"),
+        child: TitlesTextWidget(label: "SeachScreen"),
       ),
     );
   }

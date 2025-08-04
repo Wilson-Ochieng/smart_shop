@@ -1,11 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_smart/consts/theme_data.dart';
+import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/root_screen.dart';
+import 'package:shop_smart/screens/auth/login_screen.dart';
+import 'package:shop_smart/screens/cart_screen.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MainApp());
 }
 
@@ -15,22 +23,35 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-
       providers: [
-        ChangeNotifierProvider(create: (_)
-        
-        {
-
-          return ThemeProvider();
-        })
+        ChangeNotifierProvider(
+          create: (_) {
+            return ThemeProvider();
+          },
+        ),
       ],
       child: Consumer<ThemeProvider>(
-        builder: (context,themeProvider,child) {
+        builder: (context, themeProvider, child) {
           return MaterialApp(
-            theme: Styles.themeData(isDarktheme: themeProvider.getIsDarkTheme, context: context),
-            home: RootScreen(),
+            theme: Styles.themeData(
+              isDarktheme: themeProvider.getIsDarkTheme,
+              context: context,
+            ),
+
+            initialRoute: FirebaseAuth.instance.currentUser == null
+                ? '/login'
+                : '/root',
+
+            routes: {
+              'login': (context) => const LoginScreen(),
+
+              'root': (context) => const RootScreen(),
+              'cart': (context) => const CartScreen(),
+            },
+
+            home: LoginScreen(),
           );
-        }
+        },
       ),
     );
   }
