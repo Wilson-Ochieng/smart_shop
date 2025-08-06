@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   cloud_firestore: ^6.0.0
+  fancy_shimmer_image: ^2.0.3
   firebase_auth: ^6.0.0
   firebase_core: ^4.0.0
   flutter:
