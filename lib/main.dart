@@ -6,6 +6,7 @@ import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
+import 'package:shop_smart/screens/auth/signup_screen.dart';
 import 'package:shop_smart/screens/cart/cart_screen.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -39,17 +40,21 @@ class MainApp extends StatelessWidget {
             ),
 
             initialRoute: FirebaseAuth.instance.currentUser == null
-                ? '/root'
+                ? '/login'
                 : '/root',
 
             routes: {
               '/login': (context) => const LoginScreen(),
 
+              '/signup': (context) => const SignUpScreen(),
+
               '/root': (context) => const RootScreen(),
               '/cart': (context) => const CartScreen(),
+
+              '/home': (context) => const HomeScreen(),
             },
 
-            home: RootScreen(),
+            // home: SignUpScreen(),
           );
         },
       ),

@@ -10,6 +10,8 @@ import 'bottom_checkout.dart';
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   final bool isEmpty = false;
+
+  //condition?true:false
   @override
   Widget build(BuildContext context) {
     return isEmpty

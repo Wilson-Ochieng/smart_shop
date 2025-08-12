@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/consts/app_colors.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/services/app_manager.dart';
+import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -12,23 +15,30 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TitlesTextWidget(label: "Welcome to Smart Shop"*20),
-           SubtitleTextWidget(  label: "Smart Shop"),
+    Size size = MediaQuery.of(context).size;
 
-            ElevatedButton(onPressed: () {}, child: const Text("Hello  World")),
-            SwitchListTile(
-              title: Text(themeProvider.getIsDarkTheme ? "Dark Theme" :"Light Theme"),
-              value: themeProvider.getIsDarkTheme,
-              onChanged: (value) {
-                themeProvider.setDarkTheme(value);
-              print('Theme State , ${themeProvider.getIsDarkTheme}');
+    return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(AssetsManager.shoppingCart),
+        ),
+        title: const AppNameTextWidget(fontSize: 20),
+      ),
+
+      body: SizedBox(
+        height: size.height * 0.25,
+        child: Column(
+          children: [
+            Swiper(
+              itemBuilder: (context, int index) {
+                return Image.network(
+                  "https://via.placeholder.com/350x150",
+
+                  fit: BoxFit.fill,
+                );
               },
+              itemCount: 3,
             ),
           ],
         ),
