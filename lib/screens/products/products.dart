@@ -40,6 +40,7 @@ class ProductsWidget extends StatelessWidget {
             SizedBox(height: 10),
         
             Row(
+              
               children: [
                 Flexible(flex: 2, child: TitlesTextWidget(label: "Title" * 10,fontSize: 18,maxLines: 2,)),
                 Flexible(
