@@ -13,12 +13,12 @@ class MyAppFunctions {
       context: context,
       builder: (context) {
         return AlertDialog(
-          actions: [],
           shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           content: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min, 
             children: [
               Image.asset(
                 isError ? AssetsManager.error : AssetsManager.warning,
@@ -26,30 +26,37 @@ class MyAppFunctions {
                 width: 60,
               ),
               const SizedBox(height: 16),
-              SubtitleTextWidget(label: "Error", fontWeight: FontWeight.w600),
+
+              Flexible(
+                child: SingleChildScrollView(
+                  child: SubtitleTextWidget(
+                    label: subtitle,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+
               const SizedBox(height: 16),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Visibility(
-                    visible: !isError,
-                    child: TextButton(
+                  if (!isError)
+                    TextButton(
                       onPressed: () {
+                        fct();
                         Navigator.pop(context);
                       },
-                      child: SubtitleTextWidget(
-                        label: subtitle,
+                      child: const SubtitleTextWidget(
+                        label: "OK",
                         color: Colors.green,
                       ),
                     ),
-                  ),
-
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: SubtitleTextWidget(
+                    child: const SubtitleTextWidget(
                       label: "Cancel",
                       color: Colors.red,
                     ),
