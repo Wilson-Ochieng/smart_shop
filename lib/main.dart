@@ -10,6 +10,9 @@ import 'package:shop_smart/screens/auth/signup_screen.dart';
 import 'package:shop_smart/screens/cart/cart_screen.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_smart/screens/inner_screen/products_details.dart';
+import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
+import 'package:shop_smart/screens/inner_screen/wishlist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +55,10 @@ class MainApp extends StatelessWidget {
               '/cart': (context) => const CartScreen(),
 
               '/home': (context) => const HomeScreen(),
+              ProductsDetailsScreen.routName: (context) =>
+                  const ProductsDetailsScreen(),
+              ViewedRecently.routName: (context) => const ViewedRecently(),
+              WishlistScreen.routName:(context) => const WishlistScreen()
             },
 
             // home: SignUpScreen(),

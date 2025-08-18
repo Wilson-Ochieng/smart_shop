@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class TitlesTextWidget extends StatelessWidget {
   const TitlesTextWidget({
-    Key? key,
+    super.key,
     required this.label,
     this.fontSize = 20,
     this.color,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   final String label;
   final double fontSize;
@@ -20,10 +20,11 @@ class TitlesTextWidget extends StatelessWidget {
       maxLines: maxLines,
       // textAlign: TextAlign.justify,
       style: TextStyle(
-          color: color,
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          overflow: TextOverflow.ellipsis),
+        color: color,
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }

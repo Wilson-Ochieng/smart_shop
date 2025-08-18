@@ -33,7 +33,9 @@ class _RootScreenState extends State<RootScreen> {
     return Scaffold(
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
-        controller: controller, children: screens),
+        controller: controller,
+        children: screens,
+      ),
 
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentScreen,
@@ -47,15 +49,16 @@ class _RootScreenState extends State<RootScreen> {
         },
         destinations: [
           NavigationDestination(
-            
             selectedIcon: Icon(IconlyBold.activity),
-            icon: Icon(IconlyLight.home), label: "Home"),
-             NavigationDestination(
-            
+            icon: Icon(IconlyLight.home),
+            label: "Home",
+          ),
+          NavigationDestination(
             selectedIcon: Icon(IconlyBold.search),
-            icon: Icon(IconlyLight.search), label: "Search"),
-             NavigationDestination(
-            
+            icon: Icon(IconlyLight.search),
+            label: "Search",
+          ),
+          NavigationDestination(
             selectedIcon: Icon(IconlyBold.bag2),
             icon: Badge(
               backgroundColor: Colors.blue,
@@ -63,13 +66,16 @@ class _RootScreenState extends State<RootScreen> {
               textColor: Colors.white,
 
               label: Text("5"),
-              
-              
-              child: Icon(IconlyLight.bag2)), label: "Cart"),
-              NavigationDestination(
-            
+
+              child: Icon(IconlyLight.bag2),
+            ),
+            label: "Cart",
+          ),
+          NavigationDestination(
             selectedIcon: Icon(IconlyBold.profile),
-            icon: Icon(IconlyLight.profile), label: "Profile"),
+            icon: Icon(IconlyLight.profile),
+            label: "Profile",
+          ),
         ],
       ),
     );

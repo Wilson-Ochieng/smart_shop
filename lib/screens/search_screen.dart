@@ -56,25 +56,37 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               onSubmitted: (value) {
-                print("value of the text is   ${value}");
+                print("value of the text is   $value");
                 print("value of the text is   ${SearchTextController.text}");
               },
             ),
 
             Expanded(
               child: DynamicHeightGridView(
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                builder: (context, index) {
-              
-                  return  ProductsWidget();
-              
-                },
                 itemCount: 200,
                 crossAxisCount: 2,
-                
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                builder: (ctx, index) {
+                  return ProductsWidget();
+                },
               ),
             ),
+
+            // Expanded(
+            //   child: DynamicHeightGridView(
+            //     mainAxisSpacing: 12,
+            //     crossAxisSpacing: 12,
+            //     builder: (context, index) {
+
+            //       return  ProductsWidget();
+
+            //     },
+            //     itemCount: 200,
+            //     crossAxisCount: 2,
+
+            //   ),
+            // ),
           ],
         ),
       ),

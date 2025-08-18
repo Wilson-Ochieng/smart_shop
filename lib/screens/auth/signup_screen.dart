@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_smart/models/user_model.dart';
 
-import 'package:shop_smart/widgets/title_text.dart';
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -37,56 +35,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return;
     }
     setState(() {
-      isLoading =true;
+      isLoading = true;
     });
 
-try {
-  final  userCredentials = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text.trim(), password: password.text.trim());
-  
-final  newUser = UserModel(uid: userCredentials.user!.uid, email: email.text.trim(), role: role);
+    try {
+      final userCredentials = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: email.text.trim(),
+            password: password.text.trim(),
+          );
 
+      final newUser = UserModel(
+        uid: userCredentials.user!.uid,
+        email: email.text.trim(),
+        role: role,
+      );
 
-await  FirebaseFirestore.instance.collection('users')
-.doc(newUser.uid)
-.set(newUser.toMap());
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(newUser.uid)
+          .set(newUser.toMap());
 
+      await userCredentials.user!.sendEmailVerification();
 
-await userCredentials.user!.sendEmailVerification();
-
-
-ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Registered Please  verify your email before login in')));
-
-} catch (e) {
-
-  ScaffoldMessenger.of(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registered Please  verify your email before login in'),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Registration failed $e')));
-  
-}
-
-finally {
-
-
-  setState(() {
-
-    isLoading =false;
-    
-  });
-}
-
-
-
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: SizedBox.shrink(),
-        title: const Text('Register'),
-      ),
+      appBar: AppBar(leading: SizedBox.shrink(), title: const Text('Register')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -109,7 +100,7 @@ finally {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-           
+
             const SizedBox(height: 30),
             isLoading
                 ? const CircularProgressIndicator()

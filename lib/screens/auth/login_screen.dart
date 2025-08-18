@@ -31,7 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!userCred.user!.emailVerified) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Please verify your email before logging in.')),
+            content: Text('Please verify your email before logging in.'),
+          ),
         );
         return;
       }
@@ -55,9 +56,9 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Login failed: $e')));
     }
   }
 
@@ -79,18 +80,15 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(labelText: 'Email'),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             TextField(
               controller: passCtrl,
               decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: loginUser,
-              child: const Text('Login'),
-            ),
-            SizedBox(height: 20,),
+            ElevatedButton(onPressed: loginUser, child: const Text('Login')),
+            SizedBox(height: 20),
 
             TextButton(
               onPressed: () {

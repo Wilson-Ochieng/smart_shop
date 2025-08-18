@@ -2,20 +2,22 @@ import 'dart:developer';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:shop_smart/consts/app_constants.dart';
+import 'package:shop_smart/screens/inner_screen/products_details.dart';
+import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
-import 'package:shop_smart/widgets/title_text.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
-@override
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          await Navigator.pushNamed(context, ProductsDetailsScreen.routName);
+
           log("ToDo add the navigate to the product details screen");
         },
         child: SizedBox(
@@ -33,15 +35,11 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
+              const SizedBox(width: 5),
               Flexible(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     Text(
                       "Title" * 15,
                       maxLines: 2,
@@ -50,17 +48,10 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                     FittedBox(
                       child: Row(
                         children: [
+                          HeartButtonWidget(),
                           IconButton(
                             onPressed: () {},
-                            icon: const Icon(
-                              IconlyLight.heart,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_shopping_cart,
-                            ),
+                            icon: const Icon(Icons.add_shopping_cart),
                           ),
                         ],
                       ),

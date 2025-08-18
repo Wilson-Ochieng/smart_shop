@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/screens/cart/quantity_btm_sheet.dart';
+import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -22,7 +23,7 @@ class CartWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: FancyShimmerImage(
-                  imageUrl:AppConstants.imageUrl,
+                  imageUrl: AppConstants.imageUrl,
                   height: size.height * 0.2,
                   width: size.height * 0.2,
                 ),
@@ -46,10 +47,7 @@ class CartWidget extends StatelessWidget {
                               onPressed: () {},
                               icon: const Icon(Icons.clear, color: Colors.red),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(IconlyLight.heart),
-                            ),
+                            HeartButtonWidget(),
                           ],
                         ),
                       ],
@@ -62,11 +60,12 @@ class CartWidget extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         const Spacer(),
-                       OutlinedButton.icon(
+                        OutlinedButton.icon(
                           onPressed: () async {
                             await showModalBottomSheet(
-                              backgroundColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).scaffoldBackgroundColor,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(30),
