@@ -7,7 +7,6 @@ import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
 import 'package:shop_smart/screens/auth/register_screen.dart';
-import 'package:shop_smart/screens/auth/signup_screen.dart';
 import 'package:shop_smart/screens/cart/cart_screen.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
