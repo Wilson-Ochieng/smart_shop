@@ -215,33 +215,40 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       const SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                            SubtitleTextWidget(label: "Don't have an account?"),
-                          TextButton(
-                            onPressed: () {
-
-
-                              Navigator.pushNamed(context,'/signup');
-                            },
-                            child: const SubtitleTextWidget(
-                              label: "Create One?",
-                              fontStyle: FontStyle.italic,
-                              textDecoration: TextDecoration.underline,
+                      FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        
+                              SizedBox(child: SubtitleTextWidget(label: "Don't have an account?")),
+                        
+                            SizedBox(
+                              child: TextButton(
+                                onPressed: () {
+                              
+                              
+                                  Navigator.pushNamed(context,'/signup');
+                                },
+                                child: SizedBox(
+                                  child: const SubtitleTextWidget(
+                                    label: "Create One?",
+                                    fontStyle: FontStyle.italic,
+                                    textDecoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          SubtitleTextWidget(label: "New here?"),
-                          TextButton(
-                            onPressed: () {},
-                            child: const SubtitleTextWidget(
-                              label: "Forgot password?",
-                              fontStyle: FontStyle.italic,
-                              textDecoration: TextDecoration.underline,
+                            SubtitleTextWidget(label: "New here?"),
+                            TextButton(
+                              onPressed: () {},
+                              child: const SubtitleTextWidget(
+                                label: "Forgot password?",
+                                fontStyle: FontStyle.italic,
+                                textDecoration: TextDecoration.underline,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

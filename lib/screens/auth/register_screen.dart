@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shop_smart/consts/validater.dart';
 import 'package:shop_smart/models/user_model.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
+import 'package:shop_smart/widgets/auth/image_picker_widget.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -32,6 +34,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isLoading = false;
 
   final _formkey = GlobalKey<FormState>();
+
+  XFile? _pickedImage;
   @override
   void initState() {
     _nameController = TextEditingController();
@@ -65,14 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _registerFCT() async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    // if (_passwordController.text.trim() !=
-    //     _repeatPasswordController.text.trim()) {
-    //   ScaffoldMessenger.of(
-    //     context,
-    //   ).showSnackBar(const SnackBar(content: Text('Passwords do not  match')));
 
-    //   return;
-    // }
     setState(() {
       isLoading = true;
     });
@@ -118,6 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -143,6 +141,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
+                SizedBox(
+                  height: size.width * 0.3,
+                  width: size.width * 0.3,
+                  child: PickImageWidget(
+                    pickedImage: _pickedImage,
+                    function: () {},
+                  ),
+                ),
+
                 Form(
                   key: _formkey,
                   child: Column(

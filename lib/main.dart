@@ -44,7 +44,7 @@ class MainApp extends StatelessWidget {
 
             initialRoute: FirebaseAuth.instance.currentUser == null
                 ? '/login'
-                : '/root',
+                : '/login',
 
             routes: {
               '/login': (context) => const LoginScreen(),

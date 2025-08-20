@@ -15,7 +15,7 @@ class UserModel {
     return UserModel(
       uid: uid,
       username: doc['username'],
-      email: doc['email'] ?? '',
+      email: doc['email']?? '',
       role: doc['role'] ?? 'user',
     );
   }
