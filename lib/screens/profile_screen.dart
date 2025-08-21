@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
+import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
 import 'package:shop_smart/screens/inner_screen/wishlist.dart';
 import 'package:shop_smart/services/app_manager.dart';
@@ -95,7 +96,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 CustomListTile(
                   text: "All Order",
                   imagePath: AssetsManager.orderSvg,
-                  function: () {},
+                  function: () {
+                     Navigator.pushNamed(context, OrdersScreenFree.routeName);
+                  },
                 ),
                 CustomListTile(
                   text: "Wishlist",
