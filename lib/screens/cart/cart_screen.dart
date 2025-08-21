@@ -7,6 +7,7 @@ import 'package:shop_smart/widgets/title_text.dart';
 import 'bottom_checkout.dart';
 
 class CartScreen extends StatelessWidget {
+    static const routName = "/CartScreen";
   const CartScreen({super.key});
   final bool isEmpty = false;
 

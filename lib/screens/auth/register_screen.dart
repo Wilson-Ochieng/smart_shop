@@ -5,6 +5,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shop_smart/consts/validater.dart';
 import 'package:shop_smart/models/user_model.dart';
+import 'package:shop_smart/screens/auth/login_screen.dart';
+import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/auth/image_picker_widget.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
@@ -66,6 +68,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  Future<void> LocalImagePicker() async {
+    final ImagePicker imagePicker = ImagePicker();
+    await MyAppFunctions.imagePickerDialog(
+      context: context,
+      cameraFCT: () async {
+        _pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+        setState(() {});
+      },
+      galleryFCT: () async {
+        _pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+
+        setState(() {});
+      },
+      removeFCT: () async {
+        _pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+
+        setState(() {
+          _pickedImage = null;
+        });
+      },
+    );
+  }
+
   Future<void> _registerFCT() async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -101,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       );
       // Navigate to login only after success
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, LoginScreen.routName);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
@@ -146,7 +171,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: size.width * 0.3,
                   child: PickImageWidget(
                     pickedImage: _pickedImage,
-                    function: () {},
+                    function: () async {
+                      await LocalImagePicker();
+                    },
                   ),
                 ),
 

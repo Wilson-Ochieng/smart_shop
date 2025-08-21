@@ -5,6 +5,7 @@ import 'package:shop_smart/widgets/title_text.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 
 class SearchScreen extends StatefulWidget {
+    static const routName = "/SearchScreen";
   const SearchScreen({super.key});
 
   @override

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/screens/auth/login_screen.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
 import 'package:shop_smart/screens/inner_screen/wishlist.dart';
 import 'package:shop_smart/services/app_manager.dart';
@@ -10,9 +12,16 @@ import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  static const routName = "/ProfileScreen";
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -134,15 +143,35 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              icon: const Icon(Icons.login),
-              label: const Text("Login"),
+              //Ternary Operator
+              //   condition?true:false
+              icon: Icon(user == null ? Icons.login : Icons.logout),
+              label: Text(user == null ? "Login" : "Logout"),
               onPressed: () async {
-                await MyAppFunctions.showErrorOrWarningDialog(
-                  context: context,
-                  subtitle: "Are you sure you want to signout",
-                  fct: () {},
-                  isError: false,
-                );
+                if (user == null) {
+                  Navigator.pushNamed(context, LoginScreen.routName);
+                } else {
+                  await MyAppFunctions.showErrorOrWarningDialog(
+                    context: context,
+                    subtitle: "Are you sure you want to SignOut",
+                    fct: () async {
+                      await FirebaseAuth.instance.signOut();
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'You have been Signed Out Successfully',
+                          ),
+                        ),
+                      );
+                      Navigator.pushReplacementNamed(
+                        context,
+                        LoginScreen.routName,
+                      );
+                    },
+                    isError: false,
+                  );
+                }
               },
             ),
           ),

@@ -8,6 +8,8 @@ import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
 class HomeScreen extends StatelessWidget {
+    static const routName = "/HomeScreen";
+
   const HomeScreen({super.key});
 
   @override

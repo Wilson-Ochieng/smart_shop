@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:shop_smart/consts/validater.dart';
 import 'package:shop_smart/models/user_model.dart';
+import 'package:shop_smart/root_screen.dart';
+import 'package:shop_smart/screens/auth/forgot_password.dart';
+import 'package:shop_smart/screens/auth/register_screen.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/auth/google_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routName = "/LoginScreen";
   const LoginScreen({super.key});
 
   @override
@@ -56,8 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text.trim(),
       );
 
-    
-
       if (!userCred.user!.emailVerified) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -76,9 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
         final user = UserModel.fromDocument(userCred.user!.uid, doc.data()!);
 
         if (user.role == 'admin') {
-          Navigator.pushReplacementNamed(context, '/root');
+          Navigator.pushReplacementNamed(context, RootScreen.routName);
         } else {
-          Navigator.pushReplacementNamed(context, '/root');
+          Navigator.pushReplacementNamed(context, RootScreen.routName);
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -156,7 +158,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                             Navigator.of(context).pushNamed(
+                              ForgotPasswordScreen.routeName,
+                            );
+
+
+
+                          },
                           child: const SubtitleTextWidget(
                             label: "Forgot password?",
                             fontStyle: FontStyle.italic,
@@ -196,6 +206,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: GoogleButton(),
                             ),
                           ),
+
+                          SizedBox(width: 20),
                           Expanded(
                             child: SizedBox(
                               height: kBottomNavigationBarHeight,
@@ -208,7 +220,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 child: const Text("Guest?"),
-                                onPressed: () async {},
+                                onPressed: () async {
+
+                                  Navigator.pushNamed(context,RootScreen.routName);
+                                },
                               ),
                             ),
                           ),
@@ -219,15 +234,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        
-                              SizedBox(child: SubtitleTextWidget(label: "Don't have an account?")),
-                        
+                            SizedBox(
+                              child: SubtitleTextWidget(
+                                label: "Don't have an account?",
+                              ),
+                            ),
+
                             SizedBox(
                               child: TextButton(
                                 onPressed: () {
-                              
-                              
-                                  Navigator.pushNamed(context,'/signup');
+                                  Navigator.pushNamed(context, RegisterScreen.routName);
                                 },
                                 child: SizedBox(
                                   child: const SubtitleTextWidget(

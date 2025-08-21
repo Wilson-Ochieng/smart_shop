@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
+import 'package:shop_smart/widgets/title_text.dart';
 
 class MyAppFunctions {
   static Future<void> showErrorOrWarningDialog({
@@ -18,7 +19,7 @@ class MyAppFunctions {
           ),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           content: Column(
-            mainAxisSize: MainAxisSize.min, 
+            mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
                 isError ? AssetsManager.error : AssetsManager.warning,
@@ -64,6 +65,64 @@ class MyAppFunctions {
                 ],
               ),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> imagePickerDialog({
+    required BuildContext context,
+    required Function cameraFCT,
+    required galleryFCT,
+    required removeFCT,
+  }) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(child: TitlesTextWidget(label: "Choose an option")),
+
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                TextButton.icon(
+                  onPressed: () {
+                    cameraFCT();
+
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  icon: Icon(Icons.camera),
+                  label: Text("Camera"),
+                ),
+
+                TextButton.icon(
+                  onPressed: () {
+                    galleryFCT();
+
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  icon: Icon(Icons.browse_gallery),
+                  label: Text("gallery"),
+                ),
+
+                TextButton.icon(
+                  onPressed: () {
+                    removeFCT();
+
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  icon: Icon(Icons.remove),
+                  label: Text("remove"),
+                ),
+              ],
+            ),
           ),
         );
       },
