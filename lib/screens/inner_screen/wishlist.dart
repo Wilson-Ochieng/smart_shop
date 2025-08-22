@@ -1,11 +1,13 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/screens/products/products.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
 import 'package:shop_smart/widgets/title_text.dart';
+
 class WishlistScreen extends StatelessWidget {
-    static const routName = "/WishListScreen";
+  static const routName = "/WishListScreen";
   const WishlistScreen({super.key});
   final bool isEmpty = true;
 
@@ -23,7 +25,6 @@ class WishlistScreen extends StatelessWidget {
             ),
           )
         : Scaffold(
-         
             appBar: AppBar(
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,14 +42,16 @@ class WishlistScreen extends StatelessWidget {
               ],
             ),
             body: DynamicHeightGridView(
-                itemCount: 200,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                builder: (ctx, index) {
-                  return ProductsWidget();
-                },
-              ),
+              itemCount: 200,
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              builder: (ctx, index) {
+                return ProductsWidget(
+                  productId: "",
+                );
+              },
+            ),
           );
   }
 }

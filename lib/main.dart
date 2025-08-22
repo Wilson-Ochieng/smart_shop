@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/firebase_options.dart';
+import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/forgot_password.dart';
@@ -30,11 +31,17 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+         ChangeNotifierProvider(
+          create: (_) {
+            return ProductsProvider();
+          },
+        ),
         ChangeNotifierProvider(
           create: (_) {
             return ThemeProvider();
           },
         ),
+       
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
