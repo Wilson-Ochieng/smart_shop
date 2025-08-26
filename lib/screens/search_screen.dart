@@ -90,6 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   builder: (context, index) {
                     return ProductsWidget(
                       productId: productsProvider.getProducts[index].productId,
+                    
                     );
                   },
                 ),

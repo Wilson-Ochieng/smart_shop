@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:shop_smart/consts/validater.dart';
@@ -35,6 +36,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {}
+
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
+     ScaffoldMessenger.of(context).showSnackBar(
+
+          const SnackBar(
+
+            content: Text('Check your email to reset your password.'),
+          ),
+        );
   }
 
   @override

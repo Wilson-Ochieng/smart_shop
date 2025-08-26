@@ -24,7 +24,6 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
-
     final getCurrentProduct = productsProvider.findProdId(widget.productId!);
 
     Size size = MediaQuery.of(context).size;
@@ -37,6 +36,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                 await Navigator.pushNamed(
                   context,
                   ProductsDetailsScreen.routName,
+                  arguments: getCurrentProduct.productId,
                 );
 
                 log("Navigate to product details screen");
