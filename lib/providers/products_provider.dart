@@ -18,7 +18,7 @@ class ProductsProvider with ChangeNotifier {
     List<ProductModel> categoryList = products
         .where(
           (element) =>
-              element.productCategory.toLowerCase().contains(categoryName),
+              element.productCategory.toLowerCase().contains(categoryName.toLowerCase()),
         )
         .toList();
 
@@ -27,7 +27,20 @@ class ProductsProvider with ChangeNotifier {
         return categoryList;
   }
 
-  static List<ProductModel> products = [
+
+   List<ProductModel> searchQuery({required String searchText}) {
+    List<ProductModel> searchList = products
+        .where(
+          (element) => element.productTitle.toLowerCase().contains(
+                searchText.toLowerCase(),
+              ),
+        )
+        .toList();
+    return searchList;
+  }
+
+
+   List<ProductModel> products = [
     // Phones
     ProductModel(
       //1
