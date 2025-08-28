@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/models/product_model.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
@@ -25,6 +26,8 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
     final getCurrentProduct = productsProvider.findProdId(widget.productId!);
+    final cartProvider = Provider.of<CartProvider>(context);
+
 
     Size size = MediaQuery.of(context).size;
     return getCurrentProduct == null
@@ -47,7 +50,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: FancyShimmerImage(
-                      imageUrl: getCurrentProduct!.productImage,
+                      imageUrl: getCurrentProduct.productImage,
 
                       height: size.height * 0.2,
                       width: double.infinity,
@@ -90,11 +93,26 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
 
-                              onTap: () {},
+                              onTap: () {
+
+                                if(cartProvider.isProdinCart(productId: getCurrentProduct.productId));
+
+                                cartProvider.addProductToCart(productId:getCurrentProduct.productId);
+
+
+                              },
 
                               splashColor: Colors.red,
 
-                              child: Icon(Icons.add_shopping_cart_outlined),
+                              child: Icon(
+                                cartProvider.isProdinCart(productId: getCurrentProduct.productId)?
+
+                                Icons.check : Icons.add_shopping_cart_outlined,
+
+                                
+                                
+                               
+                              color: Colors.white,),
                             ),
                           ),
                         ),

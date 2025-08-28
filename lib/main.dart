@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/firebase_options.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/root_screen.dart';
@@ -40,6 +41,12 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) {
             return ThemeProvider();
+          },
+        ),
+
+         ChangeNotifierProvider(
+          create: (_) {
+            return CartProvider();
           },
         ),
        

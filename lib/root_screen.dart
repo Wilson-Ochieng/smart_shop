@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/screens/cart/cart_screen.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:shop_smart/screens/profile_screen.dart';
 import 'package:shop_smart/screens/search_screen.dart';
 
 class RootScreen extends StatefulWidget {
-
-    static const routName = "/RootScreen";
+  static const routName = "/RootScreen";
   const RootScreen({super.key});
 
   @override
@@ -16,7 +17,7 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   late List<Widget> screens;
-  int currentScreen = 1;
+  int currentScreen = 0;
 
   late PageController controller;
   @override
@@ -32,6 +33,8 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -63,11 +66,11 @@ class _RootScreenState extends State<RootScreen> {
           NavigationDestination(
             selectedIcon: Icon(IconlyBold.bag2),
             icon: Badge(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.red,
 
               textColor: Colors.white,
 
-              label: Text("5"),
+              label: Text(cartProvider.getCartItems.length.toString()),
 
               child: Icon(IconlyLight.bag2),
             ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/cart/cart_widget.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
@@ -7,14 +10,16 @@ import 'package:shop_smart/widgets/title_text.dart';
 import 'bottom_checkout.dart';
 
 class CartScreen extends StatelessWidget {
-    static const routName = "/CartScreen";
+  static const routName = "/CartScreen";
   const CartScreen({super.key});
   final bool isEmpty = false;
 
   //condition?true:false
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    // final productsProvider = Provider.of<ProductsProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    return cartProvider.getCartItems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -31,7 +36,7 @@ class CartScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
               ),
-              title: const TitlesTextWidget(label: "Cart (6)"),
+              title:  TitlesTextWidget(label: "Cart is (${cartProvider.getCartItems.length})"),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -43,9 +48,15 @@ class CartScreen extends StatelessWidget {
               ],
             ),
             body: ListView.builder(
-              itemCount: 10,
+              itemCount: cartProvider.getCartItems.length,
               itemBuilder: (context, index) {
-                return const CartWidget();
+                return ChangeNotifierProvider.value(
+                  value: cartProvider.getCartItems.values.toList()[index],
+                  
+                  
+                  
+                  
+                  child: const CartWidget());
               },
             ),
           );

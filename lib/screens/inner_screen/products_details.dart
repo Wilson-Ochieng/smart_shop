@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/consts/app_constants.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
@@ -23,6 +24,8 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
 
     String? productId = ModalRoute.of(context)!.settings.arguments as String?;
     final getCurrentProduct = productsProvider.findProdId(productId!);
+    final cartProvider = Provider.of<CartProvider>(context);
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -103,9 +106,32 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add_shopping_cart),
-                                    label: const Text("Add to cart"),
+                                    onPressed: () {
+                                      if (cartProvider.isProdinCart(
+                                        productId: getCurrentProduct.productId,
+                                      ))
+                                        ;
+
+                                      cartProvider.addProductToCart(
+                                        productId: getCurrentProduct.productId,
+                                      );
+                                    },
+                                    icon: Icon(
+                                      cartProvider.isProdinCart(
+                                            productId:
+                                                getCurrentProduct.productId,
+                                          )
+                                          ? Icons.check
+                                          : Icons.add_shopping_cart_outlined,
+                                    ),
+                                    label: Text(
+                                      cartProvider.isProdinCart(
+                                            productId:
+                                                getCurrentProduct.productId,
+                                          )
+                                          ? "In cart"
+                                          : "Add to cart",
+                                    ),
                                   ),
                                 ),
                               ),
@@ -116,12 +142,16 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TitlesTextWidget(label: "About this Item"),
-                            SubtitleTextWidget(label: "In ${getCurrentProduct.productCategory}"),
+                            SubtitleTextWidget(
+                              label: "In ${getCurrentProduct.productCategory}",
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),
 
-                        SubtitleTextWidget(label: getCurrentProduct.productDescription ),
+                        SubtitleTextWidget(
+                          label: getCurrentProduct.productDescription,
+                        ),
                       ],
                     ),
                   ),
