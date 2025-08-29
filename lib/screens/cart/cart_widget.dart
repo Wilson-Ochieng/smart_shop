@@ -19,6 +19,8 @@ class CartWidget extends StatelessWidget {
     final cartModel = Provider.of<CartModel>(context);
     final productsProvider = Provider.of<ProductsProvider>(context);
     final getCurrentProduct = productsProvider.findProdId(cartModel.productId);
+    final cartProvider = Provider.of<CartProvider>(context);
+
 
     Size size = MediaQuery.of(context).size;
     return getCurrentProduct == null
@@ -53,7 +55,10 @@ class CartWidget extends StatelessWidget {
                         Column(
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+
+                                cartProvider.removeOneItem(productId: getCurrentProduct.productId);
+                              },
                               icon: const Icon(Icons.clear, color: Colors.red),
                             ),
                             HeartButtonWidget(),
