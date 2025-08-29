@@ -30,10 +30,15 @@ class CartBottomSheetWidget extends StatelessWidget {
                   children: [
                     FittedBox(
                       child: TitlesTextWidget(
-                        label: "Total (${cartProvider.getCartItems.length}/${cartProvider.getQty()} items)",
+                        label:
+                            "Total (${cartProvider.getCartItems.length}/${cartProvider.getQty()} items)",
                       ),
                     ),
-                     SubtitleTextWidget(label: "${cartProvider.getTotal(productsProvider: productsProvider)}\$", color: Colors.blue),
+                    SubtitleTextWidget(
+                      label:
+                          "${cartProvider.getTotal(productsProvider: productsProvider).toStringAsFixed(2)}\$",
+                      color: Colors.blue,
+                    ),
                   ],
                 ),
               ),
