@@ -7,34 +7,28 @@ import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
+import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
-
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          await Navigator.pushNamed(
-            context,
-            ProductsDetailsScreen.routName,
-            arguments: productsModel.productId,
-          );
-
-          log("ToDo add the navigate to the product details screen");
+          await Navigator.pushNamed(context, ProductsDetailsScreen.routName,
+              arguments: productsModel.productId);
         },
         child: SizedBox(
           width: size.width * 0.45,
-
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -48,43 +42,49 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 5),
+              const SizedBox(
+                width: 8,
+              ),
               Flexible(
                 child: Column(
                   children: [
-                    const SizedBox(height: 5),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       productsModel.productTitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     FittedBox(
                       child: Row(
                         children: [
-                          HeartButtonWidget(),
+                          const HeartButtonWidget(),
                           IconButton(
                             onPressed: () {
                               if (cartProvider.isProdinCart(
-                                productId: productsModel.productId,
-                              ))
-                                ;
-
+                                  productId: productsModel.productId)) {
+                                return;
+                              }
                               cartProvider.addProductToCart(
-                                productId: productsModel.productId,
-                              );
+                                  productId: productsModel.productId);
                             },
                             icon: Icon(
                               cartProvider.isProdinCart(
-                                    productId: productsModel.productId,
-                                  )
+                                productId: productsModel.productId,
+                              )
                                   ? Icons.check
                                   : Icons.add_shopping_cart_outlined,
-
-                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     FittedBox(
                       child: SubtitleTextWidget(

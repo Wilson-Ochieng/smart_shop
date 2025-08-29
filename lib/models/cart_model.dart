@@ -9,5 +9,5 @@ class CartModel with ChangeNotifier {
     required this.cartId,
     required this.productId,
     required this.quantity,
-  }) {}
+  }) ;
 }

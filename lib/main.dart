@@ -6,6 +6,7 @@ import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/forgot_password.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
@@ -33,7 +34,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (_) {
             return ProductsProvider();
           },
@@ -44,12 +45,16 @@ class MainApp extends StatelessWidget {
           },
         ),
 
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (_) {
             return CartProvider();
           },
         ),
-       
+        ChangeNotifierProvider(
+          create: (_) {
+            return WishlistProvider();
+          },
+        ),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -82,8 +87,7 @@ class MainApp extends StatelessWidget {
               ForgotPasswordScreen.routeName: (context) =>
                   const ForgotPasswordScreen(),
 
-                     SearchScreen.routName: (context) =>
-                  const SearchScreen(),
+              SearchScreen.routName: (context) => const SearchScreen(),
             },
 
             // home: SignUpScreen(),
