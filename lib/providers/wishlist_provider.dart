@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/models/wishlist_model.dart';
-import 'package:shop_smart/providers/products_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v4.dart';
 
 class WishlistProvider with ChangeNotifier {
   final Map<String, WishlistModel> _wishListItems = {};
@@ -29,7 +26,7 @@ class WishlistProvider with ChangeNotifier {
     return _wishListItems.containsKey(productId);
   }
 
-  void clearLocalCart() {
+  void clearLocalWishList() {
     _wishListItems.clear();
     notifyListeners();
   }

@@ -1,22 +1,19 @@
-import 'dart:developer';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
-import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
-import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
@@ -62,7 +59,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                     FittedBox(
                       child: Row(
                         children: [
-                          const HeartButtonWidget(),
+                          HeartButtonWidget(productId: productsModel.productId,),
                           IconButton(
                             onPressed: () {
                               if (cartProvider.isProdinCart(

@@ -1,6 +1,5 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/screens/products/products.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';

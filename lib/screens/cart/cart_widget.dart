@@ -2,7 +2,6 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
@@ -65,7 +64,9 @@ class CartWidget extends StatelessWidget {
                                       color: Colors.red,
                                     ),
                                   ),
-                                  HeartButtonWidget(),
+                                  HeartButtonWidget(
+                                    productId: getCurrentProduct.productId,
+                                  ),
                                 ],
                               ),
                             ],

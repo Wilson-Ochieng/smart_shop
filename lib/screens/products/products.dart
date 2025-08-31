@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_smart/consts/app_constants.dart';
-import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
@@ -69,7 +67,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                           maxLines: 2,
                         ),
                       ),
-                      Flexible(child: HeartButtonWidget()),
+                      Flexible(child: HeartButtonWidget(productId: getCurrentProduct.productId,)),
                     ],
                   ),
 
@@ -95,7 +93,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
 
                               onTap: () {
 
-                                if(cartProvider.isProdinCart(productId: getCurrentProduct.productId));
+                                if(cartProvider.isProdinCart(productId: getCurrentProduct.productId)) {}
 
                                 cartProvider.addProductToCart(productId:getCurrentProduct.productId);
 

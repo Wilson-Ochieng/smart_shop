@@ -1,7 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_smart/consts/app_constants.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
@@ -90,7 +89,10 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              HeartButtonWidget(bkgColor: Colors.blue.shade100),
+                              HeartButtonWidget(
+                                bkgColor: Colors.blue.shade100,
+                                productId: getCurrentProduct.productId,
+                              ),
 
                               const SizedBox(width: 20),
 
@@ -109,8 +111,7 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
                                     onPressed: () {
                                       if (cartProvider.isProdinCart(
                                         productId: getCurrentProduct.productId,
-                                      ))
-                                        ;
+                                      )) {}
 
                                       cartProvider.addProductToCart(
                                         productId: getCurrentProduct.productId,

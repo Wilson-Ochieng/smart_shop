@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
-import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/cart/cart_widget.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/services/my_app_functions.dart';

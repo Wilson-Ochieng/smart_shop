@@ -1,8 +1,11 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_smart/models/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/screens/products/products.dart';
 import 'package:shop_smart/services/app_manager.dart';
+import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -14,7 +17,9 @@ class WishlistScreen extends StatelessWidget {
   //condition?true:false
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+
+    return wishlistProvider.getWishlists.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.bagWish,
@@ -30,10 +35,21 @@ class WishlistScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
               ),
-              title: const TitlesTextWidget(label: "Wishlist (6)"),
+              title: TitlesTextWidget(
+                label: "Wishlist (${wishlistProvider.getWishlists.length})",
+              ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MyAppFunctions.showErrorOrWarningDialog(
+                      isError: false,
+                      context: context,
+                      fct: () {
+                        wishlistProvider.clearLocalWishList();
+                      },
+                      subtitle: "Clear Cart",
+                    );
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,
@@ -42,13 +58,18 @@ class WishlistScreen extends StatelessWidget {
               ],
             ),
             body: DynamicHeightGridView(
-              itemCount: 200,
+              itemCount: wishlistProvider.getWishlists.length,
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               builder: (ctx, index) {
-                return ProductsWidget(
-                  productId: "",
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ProductsWidget(
+                    productId: wishlistProvider.getWishlists.values
+                        .toList()[index]
+                        .productId,
+                  ),
                 );
               },
             ),

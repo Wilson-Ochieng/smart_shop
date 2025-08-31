@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
-import 'dart:developer';
 
 class QuantityBottomSheetWidget extends StatelessWidget {
   const QuantityBottomSheetWidget({super.key, required this.cartModel});

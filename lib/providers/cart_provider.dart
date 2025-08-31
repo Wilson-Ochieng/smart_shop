@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v4.dart';
 
 class CartProvider with ChangeNotifier {
   final Map<String, CartModel> _cartItems = {};
