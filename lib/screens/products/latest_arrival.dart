@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/viewed_recently_provider.dart';
 import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
@@ -17,10 +18,12 @@ class LatestArrivalProductsWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+     final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
+          viewedProdProvider.addViewedProd(productId:productsModel.productId);
           await Navigator.pushNamed(context, ProductsDetailsScreen.routName,
               arguments: productsModel.productId);
         },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
+import 'package:shop_smart/providers/viewed_recently_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
@@ -25,7 +26,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
     final productsProvider = Provider.of<ProductsProvider>(context);
     final getCurrentProduct = productsProvider.findProdId(widget.productId!);
     final cartProvider = Provider.of<CartProvider>(context);
-
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
 
     Size size = MediaQuery.of(context).size;
     return getCurrentProduct == null
@@ -34,6 +35,10 @@ class _ProductsWidgetState extends State<ProductsWidget> {
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
               onTap: () async {
+                viewedProdProvider.addViewedProd(
+                  productId: getCurrentProduct.productId,
+                );
+
                 await Navigator.pushNamed(
                   context,
                   ProductsDetailsScreen.routName,
@@ -67,7 +72,11 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                           maxLines: 2,
                         ),
                       ),
-                      Flexible(child: HeartButtonWidget(productId: getCurrentProduct.productId,)),
+                      Flexible(
+                        child: HeartButtonWidget(
+                          productId: getCurrentProduct.productId,
+                        ),
+                      ),
                     ],
                   ),
 
@@ -92,25 +101,26 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                               borderRadius: BorderRadius.circular(12),
 
                               onTap: () {
+                                if (cartProvider.isProdinCart(
+                                  productId: getCurrentProduct.productId,
+                                )) {}
 
-                                if(cartProvider.isProdinCart(productId: getCurrentProduct.productId)) {}
-
-                                cartProvider.addProductToCart(productId:getCurrentProduct.productId);
-
-
+                                cartProvider.addProductToCart(
+                                  productId: getCurrentProduct.productId,
+                                );
                               },
 
                               splashColor: Colors.red,
 
                               child: Icon(
-                                cartProvider.isProdinCart(productId: getCurrentProduct.productId)?
+                                cartProvider.isProdinCart(
+                                      productId: getCurrentProduct.productId,
+                                    )
+                                    ? Icons.check
+                                    : Icons.add_shopping_cart_outlined,
 
-                                Icons.check : Icons.add_shopping_cart_outlined,
-
-                                
-                                
-                               
-                              color: Colors.white,),
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

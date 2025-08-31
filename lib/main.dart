@@ -6,6 +6,7 @@ import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/providers/viewed_recently_provider.dart';
 import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/forgot_password.dart';
@@ -53,6 +54,11 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) {
             return WishlistProvider();
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (_) {
+            return ViewedProdProvider();
           },
         ),
       ],

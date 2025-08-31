@@ -1,7 +1,11 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/viewed_recently_provider.dart';
 import 'package:shop_smart/screens/products/products.dart';
 import 'package:shop_smart/services/app_manager.dart';
+import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -13,7 +17,9 @@ class ViewedRecently extends StatelessWidget {
   //condition?true:false
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+
+    return viewedProdProvider.getViewedProds.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -29,10 +35,20 @@ class ViewedRecently extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
               ),
-              title: const TitlesTextWidget(label: "Viewed Recently (6)"),
+              title: TitlesTextWidget(label: "Viewed Recently (${viewedProdProvider.getViewedProds})"),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                     MyAppFunctions.showErrorOrWarningDialog(
+                      isError: false,
+                      context: context,
+                      fct: () {
+                        viewedProdProvider.clearLocalViewedProd();
+                      },
+                      subtitle: "Clear Cart",
+                    );
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,
@@ -41,13 +57,16 @@ class ViewedRecently extends StatelessWidget {
               ],
             ),
             body: DynamicHeightGridView(
-              itemCount: 200,
+              itemCount: viewedProdProvider.getViewedProds.length,
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               builder: (ctx, index) {
-                return ProductsWidget(
-                  productId: "",
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ProductsWidget(
+                    productId:viewedProdProvider.getViewedProds.values.toList()[index].productId,
+                  ),
                 );
               },
             ),
