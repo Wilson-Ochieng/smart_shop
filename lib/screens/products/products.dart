@@ -24,7 +24,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
-    final getCurrentProduct = productsProvider.findProdId(widget.productId!);
+    final getCurrentProduct = productsProvider.findByProdId(widget.productId!);
     final cartProvider = Provider.of<CartProvider>(context);
     final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
 

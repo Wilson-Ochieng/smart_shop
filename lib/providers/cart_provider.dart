@@ -40,7 +40,7 @@ class CartProvider with ChangeNotifier {
   double getTotal({required ProductsProvider productsProvider}) {
     double total = 0.0;
     _cartItems.forEach((key, value) {
-      final getCurrentProduct = productsProvider.findProdId(value.productId);
+      final getCurrentProduct = productsProvider.findByProdId(value.productId);
       if (getCurrentProduct == null) {
         total += 0;
       } else {

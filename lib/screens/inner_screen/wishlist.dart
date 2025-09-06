@@ -46,7 +46,7 @@ class WishlistScreen extends StatelessWidget {
                       fct: () {
                         wishlistProvider.clearLocalWishList();
                       },
-                      subtitle: "Clear Cart",
+                      subtitle: "Clear  Wishlist",
                     );
                   },
                   icon: const Icon(

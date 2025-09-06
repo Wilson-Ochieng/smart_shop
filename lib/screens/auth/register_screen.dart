@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_smart/consts/validater.dart';
 import 'package:shop_smart/models/user_model.dart';
+import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
 import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
@@ -117,6 +119,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           .collection('users')
           .doc(newUser.uid)
           .set(newUser.toMap());
+
+      if (mounted) {
+        final userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(newUser);
+      }
 
       await userCredentials.user!.sendEmailVerification();
 

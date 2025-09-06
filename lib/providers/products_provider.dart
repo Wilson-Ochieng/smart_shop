@@ -1,13 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:shop_smart/models/product_model.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+
+import '../models/product_model.dart';
 
 class ProductsProvider with ChangeNotifier {
   List<ProductModel> get getProducts {
     return products;
   }
 
-  ProductModel? findProdId(String productId) {
+  ProductModel? findByProdId(String productId) {
     if (products.where((element) => element.productId == productId).isEmpty) {
       return null;
     }
@@ -17,19 +18,17 @@ class ProductsProvider with ChangeNotifier {
   List<ProductModel> findByCategory({required String categoryName}) {
     List<ProductModel> categoryList = products
         .where(
-          (element) =>
-              element.productCategory.toLowerCase().contains(categoryName.toLowerCase()),
+          (element) => element.productCategory.toLowerCase().contains(
+                categoryName.toLowerCase(),
+              ),
         )
         .toList();
-
-
-
-        return categoryList;
+    return categoryList;
   }
 
-
-   List<ProductModel> searchQuery({required String searchText}) {
-    List<ProductModel> searchList = products
+  List<ProductModel> searchQuery(
+      {required String searchText, required List<ProductModel> passedList}) {
+    List<ProductModel> searchList = passedList
         .where(
           (element) => element.productTitle.toLowerCase().contains(
                 searchText.toLowerCase(),
@@ -39,8 +38,7 @@ class ProductsProvider with ChangeNotifier {
     return searchList;
   }
 
-
-   List<ProductModel> products = [
+  List<ProductModel> products = [
     // Phones
     ProductModel(
       //1

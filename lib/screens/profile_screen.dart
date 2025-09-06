@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
@@ -22,11 +23,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  User? user = FirebaseAuth.instance.currentUser;
+  // User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.getUser;
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -74,10 +78,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      TitlesTextWidget(label: "Wilson Ochieng"),
-                      SizedBox(height: 6),
-                      SubtitleTextWidget(label: "wilsonochieng718@gmail.com"),
+                    children: [
+                      TitlesTextWidget(label: user?.username ?? "Guest"),
+                      const SizedBox(height: 6),
+                      SubtitleTextWidget(label: user?.email ?? ""),
                     ],
                   ),
                 ],
@@ -98,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   text: "All Order",
                   imagePath: AssetsManager.orderSvg,
                   function: () {
-                     Navigator.pushNamed(context, OrdersScreenFree.routeName);
+                    Navigator.pushNamed(context, OrdersScreenFree.routeName);
                   },
                 ),
                 CustomListTile(

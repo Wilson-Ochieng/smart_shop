@@ -17,7 +17,7 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartModel = Provider.of<CartModel>(context);
     final productsProvider = Provider.of<ProductsProvider>(context);
-    final getCurrentProduct = productsProvider.findProdId(cartModel.productId);
+    final getCurrentProduct = productsProvider.findByProdId(cartModel.productId);
     final cartProvider = Provider.of<CartProvider>(context);
 
     Size size = MediaQuery.of(context).size;

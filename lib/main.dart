@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_smart/admin/admin_dashboard.dart';
 import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
+import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/providers/viewed_recently_provider.dart';
 import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/root_screen.dart';
@@ -23,6 +25,7 @@ import 'package:shop_smart/screens/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MainApp());
@@ -61,6 +64,14 @@ class MainApp extends StatelessWidget {
             return ViewedProdProvider();
           },
         ),
+         ChangeNotifierProvider(
+          create: (_) {
+            return UserProvider();
+          },
+        ),
+        
+        
+        
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -94,6 +105,7 @@ class MainApp extends StatelessWidget {
                   const ForgotPasswordScreen(),
 
               SearchScreen.routName: (context) => const SearchScreen(),
+               DashboardScreen.routeName: (context) => const DashboardScreen(),
             },
 
             // home: SignUpScreen(),

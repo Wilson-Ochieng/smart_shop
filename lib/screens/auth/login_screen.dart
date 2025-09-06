@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_smart/admin/admin_dashboard.dart';
 import 'package:shop_smart/consts/validater.dart';
-import 'package:shop_smart/models/user_model.dart';
+import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/forgot_password.dart';
 import 'package:shop_smart/screens/auth/register_screen.dart';
@@ -49,50 +49,36 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     super.dispose();
   }
+Future<void> _loginFct(BuildContext context) async {
+  final isValid = _formkey.currentState!.validate();
+  FocusScope.of(context).unfocus();
+  if (!isValid) return;
 
-  Future<void> _loginFct() async {
-    final isValid = _formkey.currentState!.validate();
-    FocusScope.of(context).unfocus();
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-    try {
-      final userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+  final errorMessage = await userProvider.login(
+    _emailController.text.trim(),
+    _passwordController.text.trim(),
+  );
 
-      if (!userCred.user!.emailVerified) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please verify your email before logging in.'),
-          ),
-        );
-        return;
-      }
+  if (errorMessage != null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(errorMessage)),
+    );
+    return;
+  }
 
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCred.user!.uid)
-          .get();
-
-      if (doc.exists) {
-        final user = UserModel.fromDocument(userCred.user!.uid, doc.data()!);
-
-        if (user.role == 'admin') {
-          Navigator.pushReplacementNamed(context, RootScreen.routName);
-        } else {
-          Navigator.pushReplacementNamed(context, RootScreen.routName);
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User data not found in Firestore')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Login failed: $e')));
+  // Navigate based on role
+  final user = userProvider.getUser;
+  if (user != null) {
+    if (user.role == 'admin') {
+      Navigator.pushReplacementNamed(context, DashboardScreen.routeName); // change if you have AdminDashboard
+    } else {
+      Navigator.pushReplacementNamed(context, RootScreen.routName);
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: Icon(IconlyLight.lock),
                         ),
                         onFieldSubmitted: (value) async {
-                          await _loginFct();
+                          await _loginFct(context);
                         },
                         validator: (value) {
                           return MyValidators.passwordValidator(value);
@@ -159,13 +145,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-
-                             Navigator.of(context).pushNamed(
-                              ForgotPasswordScreen.routeName,
-                            );
-
-
-
+                            Navigator.of(
+                              context,
+                            ).pushNamed(ForgotPasswordScreen.routeName);
                           },
                           child: const SubtitleTextWidget(
                             label: "Forgot password?",
@@ -188,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: const Icon(Icons.login),
                           label: const Text("Login"),
                           onPressed: () async {
-                            await _loginFct();
+                            await _loginFct(context);
                           },
                         ),
                       ),
@@ -221,8 +203,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: const Text("Guest?"),
                                 onPressed: () async {
-
-                                  Navigator.pushNamed(context,RootScreen.routName);
+                                  Navigator.pushNamed(
+                                    context,
+                                    RootScreen.routName,
+                                  );
                                 },
                               ),
                             ),
@@ -243,7 +227,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, RegisterScreen.routName);
+                                  Navigator.pushNamed(
+                                    context,
+                                    RegisterScreen.routName,
+                                  );
                                 },
                                 child: SizedBox(
                                   child: const SubtitleTextWidget(

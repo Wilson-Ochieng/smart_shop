@@ -22,7 +22,7 @@ class _ProductsDetailsWidegtState extends State<ProductsDetailsScreen> {
     final productsProvider = Provider.of<ProductsProvider>(context);
 
     String? productId = ModalRoute.of(context)!.settings.arguments as String?;
-    final getCurrentProduct = productsProvider.findProdId(productId!);
+    final getCurrentProduct = productsProvider.findByProdId(productId!);
     final cartProvider = Provider.of<CartProvider>(context);
 
     Size size = MediaQuery.of(context).size;
