@@ -45,7 +45,7 @@ class UserProvider with ChangeNotifier {
           uid: currentUser.uid,
           username: currentUser.displayName ?? '',
           email: currentUser.email ?? '',
-          role: 'user',
+          role: 'user', userCart: [], userWish: [], userImage: '', createdAt: Timestamp.now(),
         );
       }
       notifyListeners();

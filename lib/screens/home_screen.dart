@@ -42,6 +42,7 @@ class HomeScreen extends StatelessWidget {
                   height: size.height * 0.25,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
+
                     child: Swiper(
                       autoplay: true,
                       itemBuilder: (BuildContext context, int index) {
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill,
                         );
                       },
-                      itemCount: AppConstants.bannersImage.length,
+                      itemCount:AppConstants.bannersImage.length,
                       pagination: SwiperPagination(
                         // alignment: Alignment.center,
                         builder: DotSwiperPaginationBuilder(

@@ -1,18 +1,24 @@
 {
   "project_info": {
     "project_number": "947337860520",
+    "firebase_url": "https://dukaletu2-66d0b-default-rtdb.firebaseio.com",
     "project_id": "dukaletu2-66d0b",
     "storage_bucket": "dukaletu2-66d0b.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:947337860520:android:6b76abd6946bc3d607b99d",
+        "mobilesdk_app_id": "1:947337860520:android:8c8e4425333eec6b07b99d",
         "android_client_info": {
-          "package_name": "com.example.shop_smart"
+          "package_name": "com.example.ecommerce_app_sat"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4"
@@ -20,7 +26,91 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947337860520-2v428qo5b3978ecugcenljftkhvm6l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mycrude"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947337860520:android:0ea28a9f501f678607b99d",
+        "android_client_info": {
+          "package_name": "com.example.mycrude"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947337860520-2v428qo5b3978ecugcenljftkhvm6l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mycrude"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947337860520:android:6b76abd6946bc3d607b99d",
+        "android_client_info": {
+          "package_name": "com.example.shop_smart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947337860520-2v428qo5b3978ecugcenljftkhvm6l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mycrude"
+              }
+            }
+          ]
         }
       }
     }

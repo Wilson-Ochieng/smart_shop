@@ -112,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         uid: userCredentials.user!.uid,
         email: _emailController.text.trim(),
         role: role,
-        username: _nameController.text.trim(),
+        username: _nameController.text.trim(), userCart: [], userWish: [], userImage: '', createdAt: Timestamp.now(),
       );
 
       await FirebaseFirestore.instance

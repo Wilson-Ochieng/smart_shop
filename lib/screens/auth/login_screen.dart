@@ -6,9 +6,9 @@ import 'package:shop_smart/consts/validater.dart';
 import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/screens/auth/forgot_password.dart';
+import 'package:shop_smart/screens/auth/google_btn.dart';
 import 'package:shop_smart/screens/auth/register_screen.dart';
 import 'package:shop_smart/widgets/app_name_text.dart';
-import 'package:shop_smart/widgets/auth/google_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -103,7 +103,7 @@ Future<void> _loginFct(BuildContext context) async {
                 Form(
                   key: _formkey,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TextFormField(
                         controller: _emailController,
