@@ -15,6 +15,7 @@ import 'package:shop_smart/screens/auth/forgot_password.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
 import 'package:shop_smart/screens/auth/register_screen.dart';
 import 'package:shop_smart/screens/cart/cart_screen.dart';
+import 'package:shop_smart/screens/edit_upload_product_form.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
@@ -106,6 +107,9 @@ class MainApp extends StatelessWidget {
 
               SearchScreen.routName: (context) => const SearchScreen(),
                DashboardScreen.routeName: (context) => const DashboardScreen(),
+
+                 EditOrUploadProductScreen.routeName: (context) =>
+                const EditOrUploadProductScreen(),
             },
 
             // home: SignUpScreen(),

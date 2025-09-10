@@ -74,11 +74,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                       image: DecorationImage(
                         image: NetworkImage(
-                          user!.userImage.isNotEmpty == true
-                              ? user!.userImage
+                          (user?.userImage != null &&
+                                  user!.userImage.isNotEmpty)
+                              ? user.userImage
                               : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
