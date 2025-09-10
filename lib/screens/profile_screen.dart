@@ -22,14 +22,17 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
   // User? user = FirebaseAuth.instance.currentUser;
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.getUser;
 
