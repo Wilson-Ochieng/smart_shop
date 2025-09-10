@@ -28,6 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.getUser;
 
@@ -76,13 +78,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TitlesTextWidget(label: user?.username ?? "Guest"),
-                      const SizedBox(height: 6),
-                      SubtitleTextWidget(label: user?.email ?? ""),
-                    ],
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TitlesTextWidget(label: user?.username ?? "Guest"),
+                        const SizedBox(height: 6),
+                        SubtitleTextWidget(label: user?.email ?? ""),
+                      ],
+                    ),
                   ),
                 ],
               ),

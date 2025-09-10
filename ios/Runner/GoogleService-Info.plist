@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>947337860520-ed8nired0j1ev5u2jl0itgc4tuafmgjd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.947337860520-ed8nired0j1ev5u2jl0itgc4tuafmgjd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>947337860520-s4t5s45b3eo9h53e79b0goc73ov2un3u.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCLd2UAcSuk-T-cEEp7IIcPUKXR04JuD_8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>947337860520</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.shopSmart</string>
+	<key>PROJECT_ID</key>
+	<string>dukaletu2-66d0b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dukaletu2-66d0b.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:947337860520:ios:09913a74f94c4e3907b99d</string>
+	<key>DATABASE_URL</key>
+	<string>https://dukaletu2-66d0b-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

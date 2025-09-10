@@ -6,34 +6,44 @@ class UserModel {
   final String email;
   final String userImage;
   final Timestamp createdAt;
-  final List userCart, userWish;
+  final List userCart;
+  final List userWish;
   final String role;
 
   UserModel({
-    required this.userCart,
-    required this.userWish,
+    required this.uid,
+    required this.username,
+    required this.email,
     required this.userImage,
     required this.createdAt,
-    required this.uid,
-    required this.email,
+    required this.userCart,
+    required this.userWish,
     required this.role,
-    required this.username,
   });
 
   factory UserModel.fromDocument(String uid, Map<String, dynamic> doc) {
     return UserModel(
       uid: uid,
-      username: doc['username'],
+      username: doc['username'] ?? '',
       email: doc['email'] ?? '',
       role: doc['role'] ?? 'user',
       userImage: doc['userImage'] ?? '',
       createdAt: doc['createdAt'] ?? Timestamp.now(),
-      userCart: doc['userCart'] ?? [],
-      userWish: doc['userWish'] ?? [],
+      userCart: List.from(doc['userCart'] ?? []),
+      userWish: List.from(doc['userWish'] ?? []),
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {'email': email, 'role': role, 'username': username};
+    return {
+      'uid': uid,
+      'username': username,
+      'email': email,
+      'userImage': userImage,
+      'createdAt': createdAt,
+      'userCart': userCart,
+      'userWish': userWish,
+      'role': role,
+    };
   }
 }
