@@ -72,9 +72,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                         color: Theme.of(context).colorScheme.surface,
                         width: 3,
                       ),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         image: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+                          user!.userImage.isNotEmpty == true
+                              ? user!.userImage
+                              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
                         ),
                         fit: BoxFit.fill,
                       ),

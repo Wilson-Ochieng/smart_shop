@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/consts/validater.dart';
@@ -37,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String role = 'user';
   bool isLoading = false;
+  late String userImageUrl;
 
   final _formkey = GlobalKey<FormState>();
 
@@ -94,9 +100,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  Future<String?> uploadImageToCloudinary(File imageFile) async {
+    final cloudName = 'dizoiw0ns';
+    final uploadPreset = 'dukaletu';
+
+    final url = Uri.parse(
+      'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
+    );
+
+    final request = http.MultipartRequest('POST', url);
+    request.fields['upload_preset'] = uploadPreset;
+    request.files.add(
+      await http.MultipartFile.fromPath('file', imageFile.path),
+    );
+
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final respStr = await response.stream.bytesToString();
+      final data = jsonDecode(respStr);
+      return data['secure_url'];
+    } else {
+      return null;
+    }
+  }
+
   Future<void> _registerFCT() async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
+
+    if (_pickedImage == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please select an image')));
+      return;
+    }
 
     setState(() {
       isLoading = true;
@@ -109,13 +146,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
             password: _passwordController.text.trim(),
           );
 
+      // Upload to Cloudinary
+      userImageUrl =
+          await uploadImageToCloudinary(File(_pickedImage!.path)) ?? '';
+
+      if (userImageUrl.isEmpty) {
+        throw Exception('Image upload failed');
+      }
+
       final newUser = UserModel(
         uid: userCredentials.user!.uid,
         email: _emailController.text.trim(),
         role: role,
-        username: _nameController.text.trim(), userCart: [], userWish: [], userImage: '', createdAt: Timestamp.now(),
+        username: _nameController.text.trim(),
+        userCart: [],
+        userWish: [],
+        userImage: userImageUrl,
+        createdAt: Timestamp.now(),
       );
 
+      // Save to Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(newUser.uid)
@@ -130,15 +180,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Registered Please  verify your email before login in'),
+          content: Text(
+            'Registered! Please verify your email before logging in.',
+          ),
         ),
       );
-      // Navigate to login only after success
+
       Navigator.pushReplacementNamed(context, LoginScreen.routName);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Registration failed $e')));
+      ).showSnackBar(SnackBar(content: Text('Registration failed: $e')));
     } finally {
       setState(() {
         isLoading = false;
@@ -155,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       child: Scaffold(
         body: LoadngManager(
-          isLoading: isLoading ,
+          isLoading: isLoading,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
@@ -186,7 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                   ),
-          
+
                   Form(
                     key: _formkey,
                     child: Column(
@@ -202,7 +254,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             prefixIcon: Icon(Icons.person),
                           ),
                           onFieldSubmitted: (value) {
-                            FocusScope.of(context).requestFocus(_emailFocusNode);
+                            FocusScope.of(
+                              context,
+                            ).requestFocus(_emailFocusNode);
                           },
                           validator: (value) {
                             return MyValidators.displayNamevalidator(value);
@@ -298,19 +352,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12.0),
-                              // backgroundColor: Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
                             icon: const Icon(IconlyLight.addUser),
-                            label: isLoading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : const Text("Sign up"),
+                            label: const Text("Sign up"),
                             onPressed: isLoading
-                                ? null
+                                ? null // disable button while loading
                                 : () async {
                                     await _registerFCT();
                                   },
