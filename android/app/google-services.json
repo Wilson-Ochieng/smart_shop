@@ -44,12 +44,56 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:947337860520:android:42e9efdcd6ea4e5207b99d",
+        "android_client_info": {
+          "package_name": "com.example.groceryshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947337860520-2v428qo5b3978ecugcenljftkhvm6l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mycrude"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:947337860520:android:0ea28a9f501f678607b99d",
         "android_client_info": {
           "package_name": "com.example.mycrude"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "947337860520-5f6la5hsf6ko5m92jvhi0t1ae96htnce.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mycrude",
+            "certificate_hash": "bb7fe416a1de7ed2e57087370e1026329b106c4e"
+          }
+        },
         {
           "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
           "client_type": 3
@@ -86,6 +130,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "947337860520-s4t5s45b3eo9h53e79b0goc73ov2un3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shop_smart",
+            "certificate_hash": "bb7fe416a1de7ed2e57087370e1026329b106c4e"
+          }
+        },
         {
           "client_id": "947337860520-7bii2gevms4c5lmlfodpj9m8por8ccs3.apps.googleusercontent.com",
           "client_type": 3

@@ -33,6 +33,8 @@ class AssetsManager {
   // Banners
   static String banner1 = "$bannersImagesPath/banner1.png";
   static String banner2 = "$bannersImagesPath/banner2.png";
+  static String banner3 = "$bannersImagesPath/banner3.jpg";
+    static String banner4 = "$bannersImagesPath/banner4.jpg";
   // Categories path
   static String mobiles = "$categoriesImagesPath/mobiles.png";
   static String fashion = "$categoriesImagesPath/fashion.png";

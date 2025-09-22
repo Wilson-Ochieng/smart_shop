@@ -168,6 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       // Save to Firestore
       await FirebaseFirestore.instance
           .collection('users')
+          
           .doc(newUser.uid)
           .set(newUser.toMap());
 

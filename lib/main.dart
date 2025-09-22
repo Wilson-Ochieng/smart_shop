@@ -19,6 +19,7 @@ import 'package:shop_smart/screens/edit_upload_product_form.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
+import 'package:shop_smart/screens/inner_screen/orders/orders_summary.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
 import 'package:shop_smart/screens/inner_screen/wishlist.dart';
@@ -65,14 +66,11 @@ class MainApp extends StatelessWidget {
             return ViewedProdProvider();
           },
         ),
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (_) {
             return UserProvider();
           },
         ),
-        
-        
-        
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -106,10 +104,11 @@ class MainApp extends StatelessWidget {
                   const ForgotPasswordScreen(),
 
               SearchScreen.routName: (context) => const SearchScreen(),
-               DashboardScreen.routeName: (context) => const DashboardScreen(),
+              DashboardScreen.routeName: (context) => const DashboardScreen(),
 
-                 EditOrUploadProductScreen.routeName: (context) =>
-                const EditOrUploadProductScreen(),
+              EditOrUploadProductScreen.routeName: (context) =>
+                  const EditOrUploadProductScreen(),
+              
             },
 
             // home: SignUpScreen(),

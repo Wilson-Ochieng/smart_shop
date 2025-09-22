@@ -46,25 +46,30 @@ class DefaultFirebaseOptions {
     messagingSenderId: '947337860520',
     projectId: 'dukaletu2-66d0b',
     authDomain: 'dukaletu2-66d0b.firebaseapp.com',
+    databaseURL: 'https://dukaletu2-66d0b-default-rtdb.firebaseio.com',
     storageBucket: 'dukaletu2-66d0b.firebasestorage.app',
     measurementId: 'G-9FSFHP8RMH',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBkKYCRzQCzax5nyHmqdiiBUn-r1nACMp4',
-    appId: '1:947337860520:android:6b76abd6946bc3d607b99d',
+    appId: '1:947337860520:android:42e9efdcd6ea4e5207b99d',
     messagingSenderId: '947337860520',
     projectId: 'dukaletu2-66d0b',
+    databaseURL: 'https://dukaletu2-66d0b-default-rtdb.firebaseio.com',
     storageBucket: 'dukaletu2-66d0b.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCLd2UAcSuk-T-cEEp7IIcPUKXR04JuD_8',
-    appId: '1:947337860520:ios:09913a74f94c4e3907b99d',
+    appId: '1:947337860520:ios:b78bbac7e48648eb07b99d',
     messagingSenderId: '947337860520',
     projectId: 'dukaletu2-66d0b',
+    databaseURL: 'https://dukaletu2-66d0b-default-rtdb.firebaseio.com',
     storageBucket: 'dukaletu2-66d0b.firebasestorage.app',
-    iosBundleId: 'com.example.shopSmart',
+    androidClientId: '947337860520-5f6la5hsf6ko5m92jvhi0t1ae96htnce.apps.googleusercontent.com',
+    iosClientId: '947337860520-hnrrktda86j6prdq3tob9ifdf00ss6ir.apps.googleusercontent.com',
+    iosBundleId: 'com.example.groceryshop',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,7 +77,10 @@ class DefaultFirebaseOptions {
     appId: '1:947337860520:ios:09913a74f94c4e3907b99d',
     messagingSenderId: '947337860520',
     projectId: 'dukaletu2-66d0b',
+    databaseURL: 'https://dukaletu2-66d0b-default-rtdb.firebaseio.com',
     storageBucket: 'dukaletu2-66d0b.firebasestorage.app',
+    androidClientId: '947337860520-5f6la5hsf6ko5m92jvhi0t1ae96htnce.apps.googleusercontent.com',
+    iosClientId: '947337860520-ed8nired0j1ev5u2jl0itgc4tuafmgjd.apps.googleusercontent.com',
     iosBundleId: 'com.example.shopSmart',
   );
 
@@ -82,7 +90,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '947337860520',
     projectId: 'dukaletu2-66d0b',
     authDomain: 'dukaletu2-66d0b.firebaseapp.com',
+    databaseURL: 'https://dukaletu2-66d0b-default-rtdb.firebaseio.com',
     storageBucket: 'dukaletu2-66d0b.firebasestorage.app',
     measurementId: 'G-VGZZG6EXJ1',
   );
+
 }

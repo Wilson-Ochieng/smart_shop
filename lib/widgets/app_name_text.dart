@@ -11,7 +11,7 @@ class AppNameTextWidget extends StatelessWidget {
       period: const Duration(seconds: 22),
       baseColor: Colors.purple,
       highlightColor: Colors.red,
-      child: TitlesTextWidget(label: "Shop smart", fontSize: fontSize),
+      child: TitlesTextWidget(label: "My Duka", fontSize: fontSize),
     );
   }
 }

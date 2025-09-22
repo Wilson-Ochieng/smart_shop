@@ -19,6 +19,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
     final productsModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
      final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+     
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(

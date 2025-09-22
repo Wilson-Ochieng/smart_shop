@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/products_provider.dart';
+import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/screens/cart/cart_widget.dart';
 import 'package:shop_smart/services/app_manager.dart';
 import 'package:shop_smart/services/my_app_functions.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
 import 'package:shop_smart/widgets/title_text.dart';
+import 'package:uuid/uuid.dart';
 
 import 'bottom_checkout.dart';
 
@@ -76,5 +80,49 @@ class CartScreen extends StatelessWidget {
               ],
             ),
           );
+  }
+
+  Future<void> placeOrderAdvanced({
+    required CartProvider cartProvider,
+    required ProductsProvider productsProvider,
+    required UserProvider userProvider,
+    required BuildContext context,
+  }) async {
+    try {
+      final user = userProvider.getUser;
+      final orderId = const Uuid().v4();
+
+      final products = cartProvider.getCartItems.values.map((cartItem) {
+        final product = productsProvider.findByProdId(cartItem.productId);
+        return {
+          'productId': cartItem.productId,
+          'title': product?.productTitle,
+          'price': product?.productPrice,
+          'quantity': cartItem.quantity,
+          'image': product?.productImage,
+        };
+      }).toList();
+
+      final total = cartProvider.getTotal(productsProvider: productsProvider);
+
+      await FirebaseFirestore.instance.collection('orders').doc(orderId).set({
+        'orderId': orderId,
+        'userId': user!.uid,
+        'products': products,
+        'totalAmount': total,
+        'status': 'pending',
+        'createdAt': Timestamp.now(),
+      });
+
+      cartProvider.clearLocalCart();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Order placed successfully")),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Failed to place order: $e")));
+    }
   }
 }

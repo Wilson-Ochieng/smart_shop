@@ -10,7 +10,7 @@ import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
 class HomeScreen extends StatelessWidget {
-    static const routName = "/HomeScreen";
+  static const routName = "/HomeScreen";
 
   const HomeScreen({super.key});
 
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill,
                         );
                       },
-                      itemCount:AppConstants.bannersImage.length,
+                      itemCount: AppConstants.bannersImage.length,
                       pagination: SwiperPagination(
                         // alignment: Alignment.center,
                         builder: DotSwiperPaginationBuilder(
@@ -69,18 +69,28 @@ class HomeScreen extends StatelessWidget {
               TitlesTextWidget(label: "Latest Arrivals"),
               SizedBox(height: 15.0),
 
-              SizedBox(
-                height: size.height * 0.2,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return ChangeNotifierProvider.value(
-                      value: productsProvider.getProducts[index],
+              Visibility(
+                visible: productsProvider.getProducts.isNotEmpty,
 
-                      
-                      child: LatestArrivalProductsWidget());
-                  },
+                child: SizedBox(
+                  height: size.height * 0.2,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productsProvider.getProducts.length < 10
+                        ? productsProvider.getProducts.length
+                        : 10,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: productsProvider.getProducts[index],
+
+                        child: Visibility(
+                          visible: productsProvider.getProducts.isNotEmpty,
+
+                          child: LatestArrivalProductsWidget(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
 
