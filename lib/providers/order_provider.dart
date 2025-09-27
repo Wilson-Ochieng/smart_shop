@@ -5,7 +5,7 @@ class OrderModel {
   final String userId;
   final List<Map<String, dynamic>> products;
   final double totalAmount;
-  final String status; // pending, shipped, delivered, cancelled
+  final String mpesaStatus; 
   final Timestamp createdAt;
 
   OrderModel({
@@ -13,7 +13,7 @@ class OrderModel {
     required this.userId,
     required this.products,
     required this.totalAmount,
-    required this.status,
+    required this.mpesaStatus,
     required this.createdAt,
   });
 
@@ -23,7 +23,7 @@ class OrderModel {
       'userId': userId,
       'products': products,
       'totalAmount': totalAmount,
-      'status': status,
+      'mpesaSt': mpesaStatus,
       'createdAt': createdAt,
     };
   }
@@ -34,7 +34,7 @@ class OrderModel {
       userId: doc['userId'],
       products: List<Map<String, dynamic>>.from(doc['products']),
       totalAmount: (doc['totalAmount'] ?? 0.0).toDouble(),
-      status: doc['status'] ?? 'pending',
+      mpesaStatus: doc['mpesaStatus'],
       createdAt: doc['createdAt'] ?? Timestamp.now(),
     );
   }

@@ -10,6 +10,7 @@ class OrdersModelAdvanced with ChangeNotifier {
   final String price;
   final String imageUrl;
   final String quantity;
+  final String mpesaStatus;
   final Timestamp orderDate;
 
   OrdersModelAdvanced(
@@ -19,6 +20,7 @@ class OrdersModelAdvanced with ChangeNotifier {
       required this.productTitle,
       required this.userName,
       required this.price,
+      required this.mpesaStatus,
       required this.imageUrl,
       required this.quantity,
       required this.orderDate});

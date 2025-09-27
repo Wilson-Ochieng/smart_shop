@@ -1,6 +1,6 @@
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/models/product_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
@@ -9,8 +9,16 @@ import 'package:shop_smart/providers/wishlist_provider.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/products/heart_btn.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
+
 class LatestArrivalProductsWidget extends StatelessWidget {
-  const LatestArrivalProductsWidget({super.key});
+  LatestArrivalProductsWidget({super.key});
+
+  /// Kenyan currency formatter (KES)
+  final NumberFormat _kesFormatter = NumberFormat.currency(
+    locale: 'en_KE',
+    symbol: 'KES ',
+    decimalDigits: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +26,18 @@ class LatestArrivalProductsWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-     final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
-     
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          viewedProdProvider.addViewedProd(productId:productsModel.productId);
-          await Navigator.pushNamed(context, ProductsDetailsScreen.routName,
-              arguments: productsModel.productId);
+          viewedProdProvider.addViewedProd(productId: productsModel.productId);
+          await Navigator.pushNamed(
+            context,
+            ProductsDetailsScreen.routName,
+            arguments: productsModel.productId,
+          );
         },
         child: SizedBox(
           width: size.width * 0.45,
@@ -43,40 +54,36 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               Flexible(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     Text(
                       productsModel.productTitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     FittedBox(
                       child: Row(
                         children: [
-                          HeartButtonWidget(productId: productsModel.productId,),
+                          HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
                             onPressed: () {
                               if (cartProvider.isProdinCart(
-                                  productId: productsModel.productId)) {
+                                productId: productsModel.productId,
+                              )) {
                                 return;
                               }
                               cartProvider.addProductToCart(
-                                  productId: productsModel.productId);
+                                productId: productsModel.productId,
+                              );
                             },
                             icon: Icon(
                               cartProvider.isProdinCart(
-                                productId: productsModel.productId,
-                              )
+                                    productId: productsModel.productId,
+                                  )
                                   ? Icons.check
                                   : Icons.add_shopping_cart_outlined,
                             ),
@@ -84,12 +91,13 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     FittedBox(
                       child: SubtitleTextWidget(
-                        label: "${productsModel.productPrice}\$",
+                        label: _kesFormatter.format(
+                          double.tryParse(productsModel.productPrice) ?? 0,
+                        ),
+
                         fontWeight: FontWeight.w600,
                         color: Colors.blue,
                       ),

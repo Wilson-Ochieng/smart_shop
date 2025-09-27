@@ -79,7 +79,9 @@ class _ProductsDetailsWidgetState extends State<ProductsDetailsScreen> {
                             ),
                             const SizedBox(width: 20),
                             SubtitleTextWidget(
-                              label: _formatPrice(getCurrentProduct.productPrice),
+                              label: _formatPrice(
+                                getCurrentProduct.productPrice,
+                              ),
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                               color: Colors.blue,
@@ -104,7 +106,9 @@ class _ProductsDetailsWidgetState extends State<ProductsDetailsScreen> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30.0),
+                                        borderRadius: BorderRadius.circular(
+                                          30.0,
+                                        ),
                                       ),
                                     ),
                                     onPressed: () {
@@ -112,21 +116,24 @@ class _ProductsDetailsWidgetState extends State<ProductsDetailsScreen> {
                                         productId: getCurrentProduct.productId,
                                       )) {
                                         cartProvider.addProductToCart(
-                                          productId: getCurrentProduct.productId,
+                                          productId:
+                                              getCurrentProduct.productId,
                                         );
                                       }
                                     },
                                     icon: Icon(
                                       cartProvider.isProdinCart(
-                                        productId: getCurrentProduct.productId,
-                                      )
+                                            productId:
+                                                getCurrentProduct.productId,
+                                          )
                                           ? Icons.check
                                           : Icons.add_shopping_cart_outlined,
                                     ),
                                     label: Text(
                                       cartProvider.isProdinCart(
-                                        productId: getCurrentProduct.productId,
-                                      )
+                                            productId:
+                                                getCurrentProduct.productId,
+                                          )
                                           ? "In cart"
                                           : "Add to cart",
                                     ),
