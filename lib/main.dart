@@ -106,7 +106,7 @@ class MainApp extends StatelessWidget {
               SearchScreen.routName: (context) => const SearchScreen(),
               DashboardScreen.routeName: (context) => const DashboardScreen(),
 
-              EditOrUploadProductScreen.routeName: (context) =>
+              EditOrUploadProductScreen.routName: (context) =>
                   const EditOrUploadProductScreen(),
               
             },

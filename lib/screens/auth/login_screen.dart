@@ -258,15 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              SubtitleTextWidget(label: "New here?"),
-                              TextButton(
-                                onPressed: () {},
-                                child: const SubtitleTextWidget(
-                                  label: "Forgot password?",
-                                  fontStyle: FontStyle.italic,
-                                  textDecoration: TextDecoration.underline,
-                                ),
-                              ),
+                              
                             ],
                           ),
                         ),

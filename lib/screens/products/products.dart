@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
@@ -21,10 +21,15 @@ class ProductsWidget extends StatefulWidget {
 }
 
 class _ProductsWidgetState extends State<ProductsWidget> {
+  /// Kenyan currency formatter (KES)
+  final NumberFormat _kesFormatter =
+      NumberFormat.currency(locale: 'en_KE', symbol: 'KES ', decimalDigits: 0);
+
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
-    final getCurrentProduct = productsProvider.findByProdId(widget.productId!);
+    final getCurrentProduct =
+        productsProvider.findByProdId(widget.productId!);
     final cartProvider = Provider.of<CartProvider>(context);
     final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
 
@@ -47,21 +52,21 @@ class _ProductsWidgetState extends State<ProductsWidget> {
 
                 log("Navigate to product details screen");
               },
-
               child: Column(
                 children: [
+                  /// Product image
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: FancyShimmerImage(
                       imageUrl: getCurrentProduct.productImage,
-
                       height: size.height * 0.2,
                       width: double.infinity,
                     ),
                   ),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
+                  /// Title + heart btn
                   Row(
                     children: [
                       Flexible(
@@ -80,6 +85,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                     ],
                   ),
 
+                  /// Price + cart button
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -88,7 +94,12 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                         Flexible(
                           flex: 5,
                           child: SubtitleTextWidget(
-                            label: getCurrentProduct.productPrice,
+                            label: _kesFormatter.format(
+                              double.tryParse(
+                                    getCurrentProduct.productPrice,
+                                  ) ??
+                                  0,
+                            ),
                             fontWeight: FontWeight.w600,
                             color: Colors.blue,
                           ),
@@ -99,26 +110,24 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                             color: Colors.lightBlue,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
-
                               onTap: () {
                                 if (cartProvider.isProdinCart(
                                   productId: getCurrentProduct.productId,
-                                )) {}
+                                )) {
+                                  // already in cart
+                                }
 
                                 cartProvider.addProductToCart(
                                   productId: getCurrentProduct.productId,
                                 );
                               },
-
                               splashColor: Colors.red,
-
                               child: Icon(
                                 cartProvider.isProdinCart(
                                       productId: getCurrentProduct.productId,
                                     )
                                     ? Icons.check
                                     : Icons.add_shopping_cart_outlined,
-
                                 color: Colors.white,
                               ),
                             ),

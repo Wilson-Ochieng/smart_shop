@@ -78,7 +78,7 @@ class GoogleButton extends StatelessWidget {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
         elevation: 1,
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(6.0),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),

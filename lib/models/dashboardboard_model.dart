@@ -19,7 +19,7 @@ class DashboardButtonsModel {
       text: "Add a new product",
       imagePath: AssetsManager.fashion,
       onPressed: () {
-        Navigator.pushNamed(context, EditOrUploadProductScreen.routeName);
+        Navigator.pushNamed(context, EditOrUploadProductScreen.routName);
       },
     ),
     DashboardButtonsModel(

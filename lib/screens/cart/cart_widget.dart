@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
@@ -12,6 +13,16 @@ import 'package:shop_smart/widgets/title_text.dart';
 
 class CartWidget extends StatelessWidget {
   const CartWidget({super.key});
+
+  /// Kenyan Shilling formatter
+  String _formatPrice(String price) {
+    final formatter = NumberFormat.currency(
+      locale: 'en_KE',
+      symbol: 'KES ',
+      decimalDigits: 0,
+    );
+    return formatter.format(double.tryParse(price) ?? 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +41,7 @@ class CartWidget extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    /// Product image
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
                       child: FancyShimmerImage(
@@ -39,6 +51,8 @@ class CartWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
+
+                    /// Title, actions and price
                     IntrinsicWidth(
                       child: Column(
                         children: [
@@ -71,12 +85,16 @@ class CartWidget extends StatelessWidget {
                               ),
                             ],
                           ),
+
+                          /// Price + Quantity button
                           Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SubtitleTextWidget(
-                                label: "${getCurrentProduct.productPrice}\$",
+                                label: _formatPrice(
+                                  getCurrentProduct.productPrice,
+                                ),
                                 color: Colors.blue,
+                                fontWeight: FontWeight.w600,
                               ),
                               const Spacer(),
                               OutlinedButton.icon(
