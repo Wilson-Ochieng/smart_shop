@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "firebase-tools": "^14.16.0"
   }
 }
