@@ -99,8 +99,9 @@ class OrderSummaryScreen extends StatelessWidget {
       // Prepare products
       final products = cartProvider.getCartItems.values.map((cartItem) {
         final product = productsProvider.findByProdId(cartItem.productId);
-        if (product == null)
+        if (product == null) {
           throw Exception("Product ${cartItem.productId} not found");
+        }
 
         return {
           'productId': cartItem.productId,

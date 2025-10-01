@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_smart/admin/admin_dashboard.dart';
 import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/firebase_options.dart';
+import 'package:shop_smart/providers/address_provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
@@ -18,8 +19,8 @@ import 'package:shop_smart/screens/cart/cart_screen.dart';
 import 'package:shop_smart/screens/edit_upload_product_form.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_smart/screens/inner_screen/address.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
-import 'package:shop_smart/screens/inner_screen/orders/orders_summary.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
 import 'package:shop_smart/screens/inner_screen/wishlist.dart';
@@ -71,6 +72,13 @@ class MainApp extends StatelessWidget {
             return UserProvider();
           },
         ),
+         ChangeNotifierProvider(
+          create: (_) {
+            return AddressProvider();
+          },
+        ),
+
+        
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -108,7 +116,9 @@ class MainApp extends StatelessWidget {
 
               EditOrUploadProductScreen.routeName: (context) =>
                   const EditOrUploadProductScreen(),
-              
+
+              AddressFormScreen.routName: (context) =>
+                  const AddressFormScreen(),
             },
 
             // home: SignUpScreen(),

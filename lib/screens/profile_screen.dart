@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/providers/user_provider.dart';
 import 'package:shop_smart/screens/auth/login_screen.dart';
+import 'package:shop_smart/screens/inner_screen/address.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
 import 'package:shop_smart/screens/inner_screen/wishlist.dart';
@@ -109,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 const TitlesTextWidget(label: "General"),
                 const SizedBox(height: 10),
                 CustomListTile(
-                  text: "All Order",
+                  text: "All Orders",
                   imagePath: AssetsManager.orderSvg,
                   function: () {
                     Navigator.pushNamed(context, OrdersScreenFree.routeName);
@@ -132,7 +133,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                 CustomListTile(
                   text: "Address",
                   imagePath: AssetsManager.address,
-                  function: () {},
+                  function: () {
+                    Navigator.pushNamed(context, AddressFormScreen.routName);
+                  },
                 ),
                 const SizedBox(height: 6),
                 const Divider(thickness: 1),
