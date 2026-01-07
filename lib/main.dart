@@ -6,6 +6,7 @@ import 'package:shop_smart/consts/theme_data.dart';
 import 'package:shop_smart/firebase_options.dart';
 import 'package:shop_smart/providers/address_provider.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
+import 'package:shop_smart/providers/order_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/providers/theme_provider.dart';
 import 'package:shop_smart/providers/user_provider.dart';
@@ -20,6 +21,7 @@ import 'package:shop_smart/screens/edit_upload_product_form.dart';
 import 'package:shop_smart/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/screens/inner_screen/address.dart';
+import 'package:shop_smart/screens/inner_screen/orders/order_status_screen.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_screen.dart';
 import 'package:shop_smart/screens/inner_screen/products_details.dart';
 import 'package:shop_smart/screens/inner_screen/viewed_recently.dart';
@@ -72,13 +74,16 @@ class MainApp extends StatelessWidget {
             return UserProvider();
           },
         ),
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (_) {
             return AddressProvider();
           },
         ),
-
-        
+        ChangeNotifierProvider(
+          create: (_) {
+            return OrdersProvider();
+          },
+        ),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -119,6 +124,9 @@ class MainApp extends StatelessWidget {
 
               AddressFormScreen.routName: (context) =>
                   const AddressFormScreen(),
+              OrderStatusScreen.routeName: (context) => OrderStatusScreen(
+                orderId: ModalRoute.of(context)!.settings.arguments as String,
+              ),
             },
 
             // home: SignUpScreen(),
