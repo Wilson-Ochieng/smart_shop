@@ -22,6 +22,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool obscureText = true;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
@@ -53,47 +54,46 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _loginFct(BuildContext context) async {
-  final isValid = _formkey.currentState!.validate();
-  FocusScope.of(context).unfocus();
-  if (!isValid) return;
+    final isValid = _formkey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (!isValid) return;
 
-  setState(() {
-    _isLoading = true;
-  });
+    setState(() {
+      _isLoading = true;
+    });
 
-  final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-  try {
-    final errorMessage = await userProvider.login(
-      _emailController.text.trim(),
-      _passwordController.text.trim(),
-    );
-
-    if (errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
+    try {
+      final errorMessage = await userProvider.login(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
       );
-      return;
-    }
 
-    // Navigate based on role
-    final user = userProvider.getUser;
-    if (user != null) {
-      if (user.role == 'admin') {
-        Navigator.pushReplacementNamed(context, DashboardScreen.routeName);
-      } else {
-        Navigator.pushReplacementNamed(context, RootScreen.routName);
+      if (errorMessage != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(errorMessage)));
+        return;
+      }
+
+      // Navigate based on role
+      final user = userProvider.getUser;
+      if (user != null) {
+        if (user.role == 'admin') {
+          Navigator.pushReplacementNamed(context, DashboardScreen.routeName);
+        } else {
+          Navigator.pushReplacementNamed(context, RootScreen.routName);
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
-  } finally {
-    if (mounted) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -141,14 +141,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         const SizedBox(height: 16.0),
+
                         TextFormField(
                           controller: _passwordController,
                           focusNode: _passwordFocusNode,
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.visiblePassword,
-                          decoration: const InputDecoration(
+                          obscureText: obscureText,
+                          decoration: InputDecoration(
                             hintText: "***********",
-                            prefixIcon: Icon(IconlyLight.lock),
+                            prefixIcon: const Icon(IconlyLight.lock),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              },
+                              icon: Icon(
+                                obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                            ),
                           ),
                           onFieldSubmitted: (value) async {
                             await _loginFct(context);
@@ -258,7 +272,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              
                             ],
                           ),
                         ),

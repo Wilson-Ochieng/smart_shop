@@ -112,8 +112,6 @@ class OrdersProvider with ChangeNotifier {
     required BuildContext context,
   }) async {
     debugPrint('🛒 Starting order creation...');
-    debugPrint('📞 Phone: $phoneNumber');
-    debugPrint('💰 Total Amount: $totalAmount');
     debugPrint('📦 Products count: ${products.length}');
 
     try {
@@ -185,7 +183,10 @@ class OrdersProvider with ChangeNotifier {
 
       debugPrint('✅ Order updated with payment info');
 
-      // Update local list
+      // IMPORTANT: DO NOT CLEAR CART HERE
+      debugPrint('🛒 Cart preserved - waiting for payment confirmation');
+
+      // Update local list in OrdersProvider (not cart)
       final newOrder = OrderModel(
         orderId: orderId,
         userId: userId,

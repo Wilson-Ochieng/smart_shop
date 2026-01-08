@@ -75,119 +75,118 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   }
 
   /// 🔹 Place order using OrdersProvider
-  Future<void> _placeOrder({
-    required BuildContext context,
-    required CartProvider cartProvider,
-    required ProductsProvider productsProvider,
-    required UserProvider userProvider,
-  }) async {
-    if (!_formKey.currentState!.validate()) {
-      return;
+  /// 🔹 Place order using OrdersProvider
+Future<void> _placeOrder({
+  required BuildContext context,
+  required CartProvider cartProvider,
+  required ProductsProvider productsProvider,
+  required UserProvider userProvider,
+}) async {
+  if (!_formKey.currentState!.validate()) {
+    return;
+  }
+
+  setState(() {
+    _isLoading = true;
+  });
+
+  debugPrint("🛒 Starting order placement...");
+  debugPrint("📦 Current cart items before order: ${cartProvider.getCartItems.length}");
+
+  try {
+    final user = userProvider.getUser;
+    if (user == null) throw Exception("User not logged in");
+
+    debugPrint("👤 Current user: ${user.uid}");
+
+    final phone = _phoneController.text.trim();
+    
+    // Validate phone number format
+    if (!_validatePhoneNumber(phone)) {
+      throw Exception('Please enter a valid Kenyan phone number (e.g., 0712345678 or 254712345678)');
     }
 
-    setState(() {
-      _isLoading = true;
-    });
-
-    debugPrint("🛒 Starting order placement...");
-
-    try {
-      final user = userProvider.getUser;
-      if (user == null) throw Exception("User not logged in");
-
-      debugPrint("👤 Current user: ${user.uid}");
-
-      final phone = _phoneController.text.trim();
-
-      // Validate phone number format
-      if (!_validatePhoneNumber(phone)) {
-        throw Exception(
-          'Please enter a valid Kenyan phone number (e.g., 0712345678 or 254712345678)',
-        );
+    // Prepare products list
+    final products = cartProvider.getCartItems.values.map((cartItem) {
+      final product = productsProvider.findByProdId(cartItem.productId);
+      if (product == null) {
+        throw Exception("Product ${cartItem.productId} not found");
       }
 
-      // Prepare products list
-      final products = cartProvider.getCartItems.values.map((cartItem) {
-        final product = productsProvider.findByProdId(cartItem.productId);
-        if (product == null) {
-          throw Exception("Product ${cartItem.productId} not found");
-        }
+      return {
+        'productId': cartItem.productId,
+        'title': product.productTitle,
+        'price': product.productPrice,
+        'quantity': cartItem.quantity,
+        'image': product.productImage,
+      };
+    }).toList();
 
-        return {
-          'productId': cartItem.productId,
-          'title': product.productTitle,
-          'price': product.productPrice,
-          'quantity': cartItem.quantity,
-          'image': product.productImage,
-        };
-      }).toList();
+    final total = cartProvider.getTotal(productsProvider: productsProvider);
+    debugPrint("💰 Cart Total: $total");
 
-      final total = cartProvider.getTotal(productsProvider: productsProvider);
-      debugPrint("💰 Cart Total: $total");
+    if (total <= 0) throw Exception("Invalid total amount: $total");
 
-      if (total <= 0) throw Exception("Invalid total amount: $total");
+    // Get OrdersProvider
+    final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
+    
+    // Create order using OrdersProvider
+    debugPrint("📝 Creating order via OrdersProvider...");
+    final result = await ordersProvider.createOrder(
+      products: products,
+      totalAmount: total,
+      phoneNumber: phone,
+      context: context,
+    );
 
-      // Get OrdersProvider
-      final ordersProvider = Provider.of<OrdersProvider>(
-        context,
-        listen: false,
-      );
+    debugPrint("📊 OrdersProvider Result: $result");
 
-      // Create order using OrdersProvider
-      debugPrint("📝 Creating order via OrdersProvider...");
-      final result = await ordersProvider.createOrder(
-        products: products,
-        totalAmount: total,
-        phoneNumber: phone,
-        context: context,
-      );
-
-      debugPrint("📊 OrdersProvider Result: $result");
-
-      if (result['success'] == true) {
-        // Clear cart
-        cartProvider.clearLocalCart();
-        debugPrint("✅ Order created: ${result['orderId']}");
-        debugPrint("✅ CheckoutRequestId: ${result['checkoutRequestId']}");
-
-        // Show success message
-        Fluttertoast.showToast(
-          msg: "Order placed! Check your phone for M-Pesa prompt 📱",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
-        );
-
-        // Navigate to order status screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (ctx) => OrderStatusScreen(
-              orderId: result['orderId'],
-              checkoutRequestId: result['checkoutRequestId'],
-            ),
-          ),
-        );
-      } else {
-        throw Exception(result['error'] ?? 'Failed to create order');
-      }
-    } catch (e, stack) {
-      debugPrint("🔥 Failed to place order: $e");
-      debugPrint("🪵 Stacktrace: $stack");
-
+    if (result['success'] == true) {
+      // DO NOT CLEAR CART HERE - wait for payment confirmation
+      // cartProvider.clearLocalCart(); // REMOVED THIS LINE
+      
+      debugPrint("✅ Order created: ${result['orderId']}");
+      debugPrint("✅ CheckoutRequestId: ${result['checkoutRequestId']}");
+      debugPrint("✅ Cart NOT cleared - waiting for payment confirmation");
+      
+      // Show success message
       Fluttertoast.showToast(
-        msg: "Order failed: ${e.toString().replaceAll('Exception: ', '')}",
+        msg: "Order placed! Check your phone for M-Pesa prompt 📱",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.green,
       );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      
+      // Navigate to order status screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (ctx) => OrderStatusScreen(
+            orderId: result['orderId'],
+            checkoutRequestId: result['checkoutRequestId'],
+          ),
+        ),
+      );
+    } else {
+      throw Exception(result['error'] ?? 'Failed to create order');
     }
+  } catch (e, stack) {
+    debugPrint("🔥 Failed to place order: $e");
+    debugPrint("🪵 Stacktrace: $stack");
+
+    Fluttertoast.showToast(
+      msg: "Order failed: ${e.toString().replaceAll('Exception: ', '')}",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
   }
+}
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_smart/root_screen.dart';
 import 'package:shop_smart/widgets/subtitle_text.dart';
 import 'package:shop_smart/widgets/title_text.dart';
 
@@ -48,7 +49,9 @@ class EmptyBagWidget extends StatelessWidget {
               backgroundColor: Colors.red,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, RootScreen.routName);
+            },
             child: Text(buttonText),
           ),
         ],

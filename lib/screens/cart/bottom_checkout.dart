@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_smart/models/cart_model.dart';
 import 'package:shop_smart/providers/cart_provider.dart';
 import 'package:shop_smart/providers/products_provider.dart';
 import 'package:shop_smart/screens/inner_screen/orders/orders_summary.dart';
@@ -12,8 +13,8 @@ class CartBottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
-    final cartProvider = Provider.of<CartProvider>(context);
-
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    
     final totalPrice = cartProvider
         .getTotal(productsProvider: productsProvider)
         .toStringAsFixed(2);
@@ -43,7 +44,7 @@ class CartBottomSheetWidget extends StatelessWidget {
                       ),
                     ),
                     SubtitleTextWidget(
-                      label: "$totalPrice\$",
+                      label: "Ksh $totalPrice", // Changed from $ to Ksh
                       color: Colors.blue,
                     ),
                   ],
@@ -51,17 +52,30 @@ class CartBottomSheetWidget extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
+                  // IMPORTANT: Save current cart state BEFORE navigating
+                  final currentCartItems = Map<String, CartModel>.from(cartProvider.getCartItems);
+                  final currentTotalQty = cartProvider.getQty();
+                  
+                  // Reset restore flags BEFORE creating new order
+                  cartProvider.resetRestoreFlags();
+                  
+                  // Navigate to order summary
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => OrderSummaryScreen(
-                        cartItems: cartProvider.getCartItems,
+                        cartItems: currentCartItems,
                         totalPrice: totalPrice,
-                        totalQty: cartProvider.getQty(),
+                        totalQty: currentTotalQty,
                       ),
                     ),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                ),
                 child: const Text("Checkout"),
               ),
             ],
